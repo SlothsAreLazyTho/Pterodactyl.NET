@@ -30,4 +30,5 @@ Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/rel
 
 
 ## Credits
-Thanks to [Thoo_0224](https://github.com/thoo0224) for helping me out with some stuff.
+* Thanks to [Thoo_0224](https://github.com/thoo0224) for helping me out with some stuff.
+* Also thanks to [Holendrecht](https://github.com/Holendrecht) For the image and some tips.
