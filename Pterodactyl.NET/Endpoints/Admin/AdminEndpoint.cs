@@ -16,12 +16,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public UserEndpoints Users { get; }
 
+        public LocationEndpoints Locations { get; }
+
 
 
         public AdminEndpoint(IRestClient client)
         {
             Nests = new NestEndpoints(client);
             Users = new UserEndpoints(client);
+            Locations = new LocationEndpoints(client);
         }
 
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 using Pterodactyl.NET.Endpoints.Admin;
 using Pterodactyl.NET.Endpoints.Client;
 using Pterodactyl.NET.Exceptions;
-using Pterodactyl.NET.Objects;
 
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;

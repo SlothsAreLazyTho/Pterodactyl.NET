@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-
-using Newtonsoft;
+﻿using System.Diagnostics;
 using Newtonsoft.Json;
 
 using Pterodactyl.NET.Objects.Client.ServerAttributes;
-
-using RestSharp;
 
 namespace Pterodactyl.NET.Objects.Client
 {
