@@ -22,14 +22,22 @@ namespace Pterodactyl.NET.Test
             var newUser = await pterodactyl.Admin.Users.CreateUserAsync(user =>
             {
                 user.Email = "info@sirsloth.nl";
-                user.ExternalId = "";
+                user.ExternalId = null;
+                user.Username = "SirSloth";
                 user.FirstName = "Sir";
                 user.LastName = "Sloth";
-                user.Language = "nl";
-                user.Password = "Sloth!?@#01";
+                user.Language = "de";
+                user.Password = "SlotsAreLazyTho";
                 user.IsRootAdmin = false;
             });
 
+            Console.WriteLine($"Created the user {newUser.FirstName}...");
+            var success = await pterodactyl.Admin.Users.DeleteUserAsync(newUser.Id);
+
+            if(success)
+            {
+                Console.WriteLine($"Deleted the user {newUser.FirstName}...");
+            }
 
             Debugger.Break();
         }

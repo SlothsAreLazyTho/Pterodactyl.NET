@@ -78,5 +78,25 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data.Attributes;
         }
 
+        public async Task<User> EditUserAsync(int id, Action<UserOptions> options, CancellationToken token = default)
+        {
+            var userOptions = new UserOptions();
+            options.Invoke(userOptions);
+            var request = new RestRequest($"/api/application/users/{id}", Method.PATCH).AddJsonBody(userOptions);
+            var response = await _client.ExecuteAsync<BaseResponse<User>>(request, token).ConfigureAwait(false);
+            return response.Data.Attributes;
+        }
+
+        public async Task<User> EditUserAsync(User user, Action<UserOptions> options, CancellationToken token = default) => await EditUserAsync(user.Id, options, token);
+
+        public async Task<bool> DeleteUserAsync(int id, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/users/{id}", Method.DELETE);
+            var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
+            return response.IsSuccessful;
+        }
+
+        public async Task<bool> DeleteUserAsync(User user, CancellationToken token = default) => await DeleteUserAsync(user.Id, token);
+
     }
 }
