@@ -12,7 +12,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
     public class AdminEndpoint
     {
 
-        public ServerEndpoints Servers { get; }
+        public NestEndpoints Nests { get; }
 
         public UserEndpoints Users { get; }
 
@@ -20,7 +20,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public AdminEndpoint(IRestClient client)
         {
-            Servers = new ServerEndpoints(client);
+            Nests = new NestEndpoints(client);
             Users = new UserEndpoints(client);
         }
 
