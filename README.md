@@ -7,7 +7,7 @@
 ```cs
 static void Main(string[] args)
   {
-    Pterodactyl pterodactyl = new Pterodactyl("panel.ghservers.eu", "Client Key Or Application Key");
+    Pterodactyl pterodactyl = new Pterodactyl("pterodactyl.app", "Client Key Or Application Key");
   }
 ```
 
