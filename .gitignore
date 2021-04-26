@@ -1,3 +1,11 @@
+.vs
+.vs/
+.vs/*
+
+/.vs
+/.vs/
+/.vs/*
+
 ./Pterodactyl.NET/bin
 ./Pterodactyl.NET/bin/
 ./Pterodactyl.NET/bin/*
