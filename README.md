@@ -1,4 +1,4 @@
-[![image](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/main/Logo.png)
+![image](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/main/Logo.png)
 [![GitHub License](https://img.shields.io/github/license/SlothsAreLazyTho/Pterodactyl.NET)](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/master/LICENSE)
 ## Pterodactyl.NET
 
@@ -7,7 +7,7 @@
 ```cs
 static void Main(string[] args)
   {
-    Pterodactyl pterodactyl = new Pterodactyl("panel.ghservers.eu", "Client Key Or Application Key");
+    Pterodactyl pterodactyl = new Pterodactyl("pterodactyl.app", "Client Key Or Application Key");
   }
 ```
 
