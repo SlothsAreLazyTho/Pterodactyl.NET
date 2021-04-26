@@ -19,7 +19,7 @@ namespace Pterodactyl.NET
 
         internal readonly RestClient _client;
 
-        public Pterodactyl(string hostname, string clientKey = null, string applicationKey = null)
+        public Pterodactyl(string hostname, string key)
         {
             var regex = new Regex("http(s?)://");
             var host = regex.Match(hostname).Success ? hostname : $"https://{hostname}/";
@@ -28,13 +28,13 @@ namespace Pterodactyl.NET
             _client.UseSerializer<JsonNetSerializer>();
 
 
-            if (clientKey == null && applicationKey == null)
+            if(key == null)
             {
                 throw new PterodactylException("No keys are provided. Provide at least a Client Key or Application Key");
             }
 
 
-            _client.AddDefaultHeader("Authorization", $"Bearer {clientKey ?? applicationKey}");
+            _client.AddDefaultHeader("Authorization", $"Bearer {key}");
             _client.AddDefaultHeader("Accept", "Application/vnd.pterodactyl.v1+json");
             
             this.Client = new Endpoints.Client.Endpoints(_client);
