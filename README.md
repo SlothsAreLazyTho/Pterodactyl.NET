@@ -1,4 +1,4 @@
-![image](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/Pterodactyl.NET.Resources/blob/main/Logo.png)
+![image](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/main/Pterodactyl.NET.Resources/logo.png)
 [![GitHub License](https://img.shields.io/github/license/SlothsAreLazyTho/Pterodactyl.NET)](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/master/LICENSE)
 ## Pterodactyl.NET
 
@@ -30,4 +30,5 @@ Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/rel
 
 
 ## Credits
-Thanks to [Thoo_0224](https://github.com/thoo0224) for helping me out with some stuff.
+* Thanks to [Thoo_0224](https://github.com/thoo0224) for helping me out with some stuff.
+* Also thanks to [Holendrecht](https://github.com/Holendrecht) For the image and some tips.
