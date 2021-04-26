@@ -9,14 +9,14 @@ using RestSharp;
 
 namespace Pterodactyl.NET.Endpoints.Admin
 {
-    public class Endpoints
+    public class AdminEndpoints
     {
 
         public ServerEndpoints Servers { get; }
 
 
 
-        public Endpoints(IRestClient client)
+        public AdminEndpoints(IRestClient client)
         {
             Servers = new ServerEndpoints(client);
         }

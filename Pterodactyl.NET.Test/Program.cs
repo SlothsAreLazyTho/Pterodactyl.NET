@@ -13,9 +13,10 @@ namespace Pterodactyl.NET.Test
         {
             var key = Environment.GetEnvironmentVariable("Pterodactyl_ClientKey", EnvironmentVariableTarget.User);
             var adminKey = Environment.GetEnvironmentVariable("Pterodactyl_AdminKey", EnvironmentVariableTarget.User);
-            var ptero = new Pterodactyl("panel.ghservers.eu", null, adminKey);
-            var servers = await ptero.Client.Servers.GetAllAsync(k => k.IsOwner);
-            
+            var pterodactyl = new Pterodactyl("panel.ghservers.eu", key);
+            var servers = await pterodactyl.Client.Servers.GetAllAsync();
+
+
 
             Debugger.Break();
         }
