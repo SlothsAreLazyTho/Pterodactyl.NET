@@ -27,7 +27,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<IEnumerable<Nest>> GetNestsAsync(Func<Nest, bool> func, CancellationToken token = default)
         {
-            var users = await GetAllAsync(token);
+            var users = await GetNestsAsync(token);
             return users.Where(func);
         }
 

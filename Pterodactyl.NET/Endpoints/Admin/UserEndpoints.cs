@@ -75,6 +75,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             options.Invoke(user);
             var request = new RestRequest($"/api/application/users", Method.POST).AddJsonBody(user);
             var response = await _client.ExecuteAsync<BaseResponse<User>>(request, token).ConfigureAwait(false);
+            Console.Write(response.Content);
             return response.Data.Attributes;
         }
 

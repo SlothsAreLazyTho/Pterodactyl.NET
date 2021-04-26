@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
+using Pterodactyl.NET.Exceptions;
+using Pterodactyl.NET.Objects;
 using Pterodactyl.NET.Objects.Client;
 using Pterodactyl.NET.Objects.Client.ServerAttributes;
 
@@ -22,6 +26,13 @@ namespace Pterodactyl.NET.Endpoints.Client
         {
             var request = new RestRequest("/api/client", Method.GET);
             var response = await _client.ExecuteAsync<BaseListResponse<BaseResponse<Server>>>(request, token).ConfigureAwait(false);
+
+            /* Need to find a way for this but will be solved */
+            if(!response.IsSuccessful) {
+                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
+                throw new PterodactylException(body.errors[0]);
+            }
+
             return response.Data.Data.Select(c => c.Attributes);
         }
 
@@ -36,6 +47,13 @@ namespace Pterodactyl.NET.Endpoints.Client
         {
             var request = new RestRequest($"/api/client/servers/{id}", Method.GET);
             var response = await _client.ExecuteAsync<BaseResponse<Server>>(request, token).ConfigureAwait(false);
+            
+            if (!response.IsSuccessful)
+            {
+                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
+                throw new PterodactylException(body.errors[0]);
+            }
+
             return response.Data.Attributes;
         }
 
@@ -44,6 +62,13 @@ namespace Pterodactyl.NET.Endpoints.Client
         {
             var request = new RestRequest($"/api/client/servers/{id}/utilization", Method.GET);
             var response = await _client.ExecuteAsync<BaseResponse<ServerResource>>(request, token).ConfigureAwait(false);
+
+            if (!response.IsSuccessful)
+            {
+                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
+                throw new PterodactylException(body.errors[0]);
+            }
+
             return response.Data.Attributes;
         }
 
@@ -57,7 +82,14 @@ namespace Pterodactyl.NET.Endpoints.Client
             };
 
             var request = new RestRequest($"/api/client/servers/{id}/command", Method.POST).AddJsonBody(json);
-            var rsp = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
+            var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
+
+            if (!response.IsSuccessful)
+            {
+                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
+                throw new PterodactylException(body.errors[0]);
+            }
+
             return rsp.IsSuccessful;
         }
 
@@ -71,7 +103,14 @@ namespace Pterodactyl.NET.Endpoints.Client
             };
 
             var request = new RestRequest($"/api/client/servers/{id}/power", Method.POST).AddJsonBody(json);
-            var rsp = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
+            var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
+
+            if (!response.IsSuccessful)
+            {
+                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
+                throw new PterodactylException(body.errors[0]);
+            }
+
             return rsp.IsSuccessful;
         }
 
