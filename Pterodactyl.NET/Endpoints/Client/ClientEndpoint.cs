@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 using RestSharp;
 
-
-namespace Pterodactyl.NET.Endpoints.Admin
+namespace Pterodactyl.NET.Endpoints.Client
 {
-    public class AdminEndpoints
+    public class ClientEndpoint
     {
 
         public ServerEndpoints Servers { get; }
 
 
 
-        public AdminEndpoints(IRestClient client)
+        public ClientEndpoint(IRestClient client)
         {
             Servers = new ServerEndpoints(client);
         }

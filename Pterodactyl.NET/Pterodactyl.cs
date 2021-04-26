@@ -17,9 +17,9 @@ namespace Pterodactyl.NET
         internal readonly RestClient _client;
 
 
-        public ClientEndpoints Client { get; }
+        public ClientEndpoint Client { get; }
 
-        public AdminEndpoints Admin { get; }
+        public AdminEndpoint Admin { get; }
 
         public Pterodactyl(string hostname, string key)
         {
@@ -36,8 +36,8 @@ namespace Pterodactyl.NET
             _client.AddDefaultHeader("Authorization", $"Bearer {key}");
             _client.AddDefaultHeader("Accept", "Application/vnd.pterodactyl.v1+json");
             
-            Client = new ClientEndpoints(_client);
-            Admin = new AdminEndpoints(_client);
+            Client = new ClientEndpoint(_client);
+            Admin = new AdminEndpoint(_client);
         }
 
     }

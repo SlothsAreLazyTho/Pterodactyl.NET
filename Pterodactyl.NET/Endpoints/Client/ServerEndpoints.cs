@@ -22,7 +22,7 @@ namespace Pterodactyl.NET.Endpoints.Client
         public async Task<IEnumerable<Server>> GetAllAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client", Method.GET);
-            var response = await _client.ExecuteAsync<BaseListResponse<BaseResponse<Server>>>(request, token).ConfigureAwait(true);
+            var response = await _client.ExecuteAsync<BaseListResponse<BaseResponse<Server>>>(request, token).ConfigureAwait(false);
             return response.Data.Data.Select(c => c.Attributes);
         }
 
@@ -36,7 +36,7 @@ namespace Pterodactyl.NET.Endpoints.Client
         public async Task<Server> GetServerByIdAsync(string id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/client/servers/{id}", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<Server>>(request, token).ConfigureAwait(true);
+            var response = await _client.ExecuteAsync<BaseResponse<Server>>(request, token).ConfigureAwait(false);
             return response.Data.Attributes;
         }
 
@@ -44,7 +44,7 @@ namespace Pterodactyl.NET.Endpoints.Client
         public async Task<ServerResource> GetServerResource(string id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/client/servers/{id}/utilization", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<ServerResource>>(request, token).ConfigureAwait(true);
+            var response = await _client.ExecuteAsync<BaseResponse<ServerResource>>(request, token).ConfigureAwait(false);
             return response.Data.Attributes;
         }
 
@@ -58,7 +58,7 @@ namespace Pterodactyl.NET.Endpoints.Client
             };
 
             var request = new RestRequest($"/api/client/servers/{id}/command", Method.POST).AddJsonBody(json);
-            var rsp = await _client.ExecuteAsync(request, token).ConfigureAwait(true);
+            var rsp = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
             return rsp.IsSuccessful;
         }
 
@@ -72,7 +72,7 @@ namespace Pterodactyl.NET.Endpoints.Client
             };
 
             var request = new RestRequest($"/api/client/servers/{id}/power", Method.POST).AddJsonBody(json);
-            var rsp = await _client.ExecuteAsync(request, token).ConfigureAwait(true);
+            var rsp = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
             return rsp.IsSuccessful;
         }
 
