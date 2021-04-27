@@ -17,7 +17,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         internal NodeEndpoints(IRestClient client) : base(client)
         { }
 
-        public async Task<IEnumerable<Node>> GetAllAsync(CancellationToken token = default)
+        public async Task<IEnumerable<Node>> GetAllNodesAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/nodes");
 
@@ -26,9 +26,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<IEnumerable<Node>> GetAllAsync(Func<Node, bool> func, CancellationToken token = default)
+        public async Task<IEnumerable<Node>> GetAllNodesAsync(Func<Node, bool> func, CancellationToken token = default)
         {
-            var users = await GetAllAsync(token);
+            var users = await GetAllNodesAsync(token);
             return users.Where(func);
         }
 
@@ -43,27 +43,27 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<IEnumerable<Node>> FindNodesByPublicAsync(bool isPublic, CancellationToken token = default)
         {
-            return await GetAllAsync(c => c.Public == isPublic, token);
+            return await GetAllNodesAsync(c => c.Public == isPublic, token);
         }
 
         public async Task<IEnumerable<Node>> FindNodesByFqdnAsync(string fqdn, CancellationToken token = default)
         {
-            return await GetAllAsync(c => c.Fqdn == fqdn, token);
+            return await GetAllNodesAsync(c => c.Fqdn == fqdn, token);
         }
 
         public async Task<IEnumerable<Node>> FindNodesByLocationIdAsync(int id, CancellationToken token = default)
         {
-            return await GetAllAsync(c => c.LocationId == id, token);
+            return await GetAllNodesAsync(c => c.LocationId == id, token);
         }
 
         public async Task<IEnumerable<Node>> FindNodesByLocationAsync(Location location, CancellationToken token = default)
         {
-            return await GetAllAsync(c => c.LocationId == location.Id, token);
+            return await GetAllNodesAsync(c => c.LocationId == location.Id, token);
         }
 
         public async Task<IEnumerable<Node>> FindMainstanceNodesAsync(CancellationToken token = default)
         {
-            return await GetAllAsync(c => c.IsMainstanceMode == true, token);
+            return await GetAllNodesAsync(c => c.IsMainstanceMode == true, token);
         }
 
         public async Task<Node> CreateNodeAsync(Action<NodeOptions> options, CancellationToken token = default)
@@ -101,9 +101,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<Node> EditNodeAsync(User user, Action<NodeOptions> options, CancellationToken token = default)
+        public async Task<Node> EditNodeAsync(Node node, Action<NodeOptions> options, CancellationToken token = default)
         {
-            return await EditNodeAsync(user.Id, options, token);
+            return await EditNodeAsync(node.Id, options, token);
         }
 
         public async Task<Node> EditNodeAsync(int id, NodeOptions options, CancellationToken token = default)
@@ -134,6 +134,95 @@ namespace Pterodactyl.NET.Endpoints.Admin
         {
             return await DeleteNodeAsync(node.Id, token);
         }
+
+
+
+        public async Task<IEnumerable<Allocation>> GetAllocationsAsync(int nodeId, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
+
+            var response = await HandleRequest<IEnumerable<Allocation>>(request, token);
+
+            return response.Data;
+        }
+
+        public async Task<IEnumerable<Allocation>> GetAllocationsAsync(int nodeId, Func<Allocation, bool> func, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
+
+            var response = await HandleRequest<IEnumerable<Allocation>>(request, token);
+
+            return response.Data.Where(func);
+        }
+
+        public async Task<IEnumerable<Allocation>> GetAllocationsAsync(Node node, CancellationToken token = default)
+        {
+            return await GetAllocationsAsync(node.Id, token);
+        }
+
+        public async Task<IEnumerable<Allocation>> GetAllocationsAsync(Node node, Func<Allocation, bool> func, CancellationToken token = default)
+        {
+            return await GetAllocationsAsync(node.Id, func, token);
+        }
+
+        public async Task<Allocation> CreateAllocationAsync(int nodeId, Action<AllocationOptions> options, CancellationToken token = default)
+        {
+            var allocation = new AllocationOptions();
+            options.Invoke(allocation);
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations", Method.POST)
+                .AddJsonBody(allocation);
+
+            var response = await HandleRequest<Allocation>(request, token);
+
+            return response.Data;
+        }
+
+        public async Task<Allocation> CreateAllocationAsync(Node node, Action<AllocationOptions> options, CancellationToken token = default)
+        {
+
+            return await CreateAllocationAsync(node.Id, options, token);
+        }
+
+        public async Task<Allocation> CreateAllocationAsync(int nodeId, AllocationOptions options, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations", Method.POST)
+                .AddJsonBody(options);
+
+            var response = await HandleRequest<Allocation>(request, token);
+
+            return response.Data;
+        }
+
+        public async Task<Allocation> CreateAllocationAsync(Node node, AllocationOptions options, CancellationToken token = default)
+        {
+
+            return await CreateAllocationAsync(node.Id, options, token);
+        }
+
+        public async Task<bool> DeleteAllocationAsync(int nodeId, int id, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations/{id}", Method.DELETE);
+
+            var response = await HandleRequest(request, token);
+
+            return response.IsSuccessful;
+        }
+
+        public async Task<bool> DeleteAllocationAsync(Node node, int allocationId, CancellationToken token = default)
+        {
+            return await DeleteAllocationAsync(node.Id, allocationId, token);
+        }
+
+        public async Task<bool> DeleteAllocationAsync(int nodeId, Allocation allocation, CancellationToken token = default)
+        {
+            return await DeleteAllocationAsync(nodeId, allocation.Id, token);
+        }
+
+        public async Task<bool> DeleteAllocationAsync(Node node, Allocation allocation, CancellationToken token = default)
+        {
+            return await DeleteAllocationAsync(node.Id, allocation.Id, token);
+        }
+
 
 
     }

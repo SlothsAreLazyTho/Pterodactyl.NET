@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
+
 using Newtonsoft.Json;
 
 namespace Pterodactyl.NET.Objects.Admin
 {
+
+    [DebuggerDisplay("{" + nameof(Name) + "}")]
     public class Nest
     {
 
