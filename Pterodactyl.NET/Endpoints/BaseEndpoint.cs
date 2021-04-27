@@ -19,13 +19,13 @@ namespace Pterodactyl.NET.Endpoints
             _client = client;
         }
 
-        public async Task<BaseResponse<T>> HandleRequest<T>(IRestRequest request, CancellationToken token = default)
+        protected async Task<BaseResponse<T>> HandleRequest<T>(IRestRequest request, CancellationToken token = default)
         {
             var response = await HandleRequestRaw<T>(request, token);
             return response.Data;
         }
 
-        public async Task<IRestResponse<BaseResponse<T>>> HandleRequestRaw<T>(IRestRequest request, CancellationToken token = default)
+        protected async Task<IRestResponse<BaseResponse<T>>> HandleRequestRaw<T>(IRestRequest request, CancellationToken token = default)
         {
             var response = await _client.ExecuteAsync<BaseResponse<T>>(request, token).ConfigureAwait(false);
 
@@ -38,7 +38,7 @@ namespace Pterodactyl.NET.Endpoints
             return response;
         }
 
-        public async Task<IRestResponse> HandleRequest(IRestRequest request, CancellationToken token = default)
+        protected async Task<IRestResponse> HandleRequest(IRestRequest request, CancellationToken token = default)
         {
             var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
 

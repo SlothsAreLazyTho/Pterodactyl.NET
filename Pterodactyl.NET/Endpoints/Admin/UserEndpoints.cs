@@ -18,7 +18,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         internal UserEndpoints(IRestClient client) : base(client)
         { }
 
-        public async Task<IEnumerable<User>> GetAllAsync(CancellationToken token = default)
+        public async Task<IEnumerable<User>> GetUsersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/users");
 
@@ -27,9 +27,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync(Func<User, bool> func, CancellationToken token = default)
+        public async Task<IEnumerable<User>> GetUsersAsync(Func<User, bool> func, CancellationToken token = default)
         {
-            var users = await GetAllAsync(token);
+            var users = await GetUsersAsync(token);
             return users.Where(func);
         }
 
@@ -53,25 +53,25 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<User> GetUserByFirstnameAsync(string firstName, CancellationToken token = default)
         {
-            var users = await GetAllAsync(token);
+            var users = await GetUsersAsync(token);
             return users.Where(c => c.FirstName == firstName).FirstOrDefault();
         }
 
         public async Task<User> GetUserByLastnameAsync(string lastName, CancellationToken token = default)
         {
-            var users = await GetAllAsync(token);
+            var users = await GetUsersAsync(token);
             return users.Where(c => c.LastName == lastName).FirstOrDefault();
         }
 
         public async Task<User> GetUserByUsernameAsync(string username, CancellationToken token = default)
         {
-            var users = await GetAllAsync(token);
+            var users = await GetUsersAsync(token);
             return users.Where(c => c.Username == username).FirstOrDefault();
         }
 
         public async Task<User> GetUserByUUIDAsync(string uuid, CancellationToken token = default)
         {
-            var users = await GetAllAsync(token);
+            var users = await GetUsersAsync(token);
             return users.Where(c => c.Uuid == uuid).FirstOrDefault();
         }
 
@@ -121,7 +121,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
                 .AddJsonBody(options);
 
             var response = await HandleRequest<User>(request, token);
-            
+
             return response.Data;
         }
 

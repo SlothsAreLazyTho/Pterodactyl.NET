@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using RestSharp;
+﻿using RestSharp;
 
 
 namespace Pterodactyl.NET.Endpoints.Admin
@@ -22,6 +16,8 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public ServerEndpoints Servers { get; }
 
+        public DatabaseEndpoints Database { get; }
+
 
         public AdminEndpoint(IRestClient client)
         {
@@ -30,6 +26,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             Locations = new LocationEndpoints(client);
             Nodes = new NodeEndpoints(client);
             Servers = new ServerEndpoints(client);
+            Database = new DatabaseEndpoints(client);
         }
 
     }

@@ -29,7 +29,7 @@ namespace Pterodactyl.NET.Objects.Admin
 
         public EggScript Script { get; set; }
 
-        [JsonProperty("Created_at")]
+        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
 
         [JsonProperty("updated_at")]

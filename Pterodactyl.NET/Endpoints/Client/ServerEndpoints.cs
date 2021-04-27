@@ -19,6 +19,7 @@ namespace Pterodactyl.NET.Endpoints.Client
         internal ServerEndpoints(IRestClient client) : base(client) 
         { }
 
+
         public async Task<IEnumerable<Server>> GetServersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client");
@@ -28,7 +29,7 @@ namespace Pterodactyl.NET.Endpoints.Client
             return response.Data.Attributes;
         }
 
-        public async Task<IEnumerable<Server>> FindServersAsync(Func<Server, bool> func, CancellationToken token = default)
+        public async Task<IEnumerable<Server>> GetServersAsync(Func<Server, bool> func, CancellationToken token = default)
         {
             var servers = await GetServersAsync(token);
             return servers.Where(func);
