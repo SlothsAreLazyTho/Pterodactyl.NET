@@ -11,11 +11,12 @@ namespace Pterodactyl.NET.Exceptions
     class PterodactylException : Exception
     {
 
-        public PterodactylException(string message) : base(message)
-        { }
+        public PterodactylError[] Errors { get; }
 
-        public PterodactylException(PterodactylError error) : base($"{(error.Status != 0 ? $"[{error.Status}]" : "")} {error.Detail}")
-        { }
+        public PterodactylException(PterodactylError[] errors) : base(errors.First().Detail)
+        {
+            this.Errors = errors;
+        }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 using Pterodactyl.NET.Endpoints.Admin;
 using Pterodactyl.NET.Endpoints.Client;
@@ -23,7 +24,7 @@ namespace Pterodactyl.NET
         {
             if (key == null)
             {
-                throw new PterodactylException("No keys are provided. Provide at least a Client Key or Application Key");
+                throw new Exception("No keys are provided. Provide at least a Client Key or Application Key");
             }
 
             var regex = new Regex("http(s?)://");
