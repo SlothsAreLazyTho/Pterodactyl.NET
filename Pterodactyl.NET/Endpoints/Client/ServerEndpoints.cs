@@ -22,6 +22,7 @@ namespace Pterodactyl.NET.Endpoints.Client
         public async Task<IEnumerable<Server>> GetServersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client");
+            
             var response = await HandleRequest<BaseAttributes<List<Server>>>(request, token);
 
             return response.Data.Attributes;
@@ -57,13 +58,16 @@ namespace Pterodactyl.NET.Endpoints.Client
         public async Task<ServerResource> GetServerResourceAsync(string id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/client/servers/{id}/utilization", Method.GET);
+            
             var response = await HandleRequest<ServerResource>(request, token);
 
             return response.Data;
         }
 
         public async Task<bool> SendCommandAsync(Server server, string command, CancellationToken token = default)
-            => await SendCommandAsync(server.Id, command, token);
+        {
+            return await SendCommandAsync(server.Id, command, token);
+        }
 
         public async Task<bool> SendCommandAsync(string id, string command, CancellationToken token = default)
         {
@@ -74,13 +78,16 @@ namespace Pterodactyl.NET.Endpoints.Client
 
             var request = new RestRequest($"/api/client/servers/{id}/command", Method.POST)
                 .AddJsonBody(payload);
+
             var response = await HandleRequestRaw<object>(request, token);
 
             return response.IsSuccessful;
         }
 
         public async Task<bool> SendPowerSignalAsync(Server server, ServerRunState state, CancellationToken token = default)
-            => await SendPowerSignalAsync(server.Id, state, token);
+        {
+            return await SendPowerSignalAsync(server.Id, state, token);
+        }
 
         public async Task<bool> SendPowerSignalAsync(string id, ServerRunState state, CancellationToken token = default)
         {
@@ -91,6 +98,7 @@ namespace Pterodactyl.NET.Endpoints.Client
 
             var request = new RestRequest($"/api/client/servers/{id}/power", Method.POST)
                 .AddJsonBody(payload);
+            
             var response = await HandleRequestRaw<object>(request, token);
 
             return response.IsSuccessful;

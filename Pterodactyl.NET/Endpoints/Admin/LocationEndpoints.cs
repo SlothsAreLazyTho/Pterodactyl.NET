@@ -21,6 +21,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<IEnumerable<Location>> GetAllAsync(CancellationToken token = default) ///api/application/locations
         {
             var request = new RestRequest("/api/application/locations");
+            
             var response = await HandleRequest<IEnumerable<Location>>(request, token);
 
             return response.Data;
@@ -47,7 +48,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<Location> GetLocationByIdAsync(string id, CancellationToken token = default) ///api/application/locations
         {
             var request = new RestRequest($"/api/application/locations/{id}");
-            var response = await HandleRequest<Location>(request, token).ConfigureAwait(false);
+            var response = await HandleRequest<Location>(request, token); 
 
             return response.Data;
         }
@@ -59,7 +60,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             var request = new RestRequest($"/api/application/users", Method.POST)
                 .AddJsonBody(location);
 
-            var response = await HandleRequest<Location>(request, token).ConfigureAwait(false);
+            var response = await HandleRequest<Location>(request, token);
 
             return response.Data;
         }
@@ -69,7 +70,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             var request = new RestRequest($"/api/application/users", Method.POST)
                 .AddJsonBody(options);
 
-            var response = await HandleRequest<Location>(request, token).ConfigureAwait(false);
+            var response = await HandleRequest<Location>(request, token);
 
             return response.Data;
         }
@@ -82,15 +83,14 @@ namespace Pterodactyl.NET.Endpoints.Admin
             var request = new RestRequest($"/api/application/users/{id}", Method.PATCH)
                 .AddJsonBody(locationOptions);
 
-            var response = await HandleRequest<Location>(request, token)
-                .ConfigureAwait(false);
+            var response = await HandleRequest<Location>(request, token);
 
             return response.Data;
         }
 
         public async Task<Location> EditLocationAsync(Location location, Action<LocationOptions> options, CancellationToken token = default)
         {
-            return await EditUserAsync(location.Id, options, token);
+            return await EditLocationAsync(location.Id, options, token);
         }
 
         public async Task<Location> EditLocationAsync(int id, LocationOptions options, CancellationToken token = default)
@@ -98,23 +98,21 @@ namespace Pterodactyl.NET.Endpoints.Admin
             var request = new RestRequest($"/api/application/users/{id}", Method.PATCH)
                 .AddJsonBody(options);
 
-            var response = await HandleRequest<Location>(request, token)
-                .ConfigureAwait(false);
+            var response = await HandleRequest<Location>(request, token);
 
             return response.Data;
         }
 
         public async Task<Location> EditLocationAsync(Location location, LocationOptions options, CancellationToken token = default)
         {
-            return await EditUserAsync(location.Id, options, token);
+            return await EditLocationAsync(location.Id, options, token);
         }
 
         public async Task<bool> DeleteLocationAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/locations/{id}", Method.DELETE);
-            
-            var response = await HandleRequest(request, token)
-                .ConfigureAwait(false);
+
+            var response = await HandleRequest(request, token);
             
             return response.IsSuccessful;
         }

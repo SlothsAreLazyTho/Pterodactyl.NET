@@ -19,6 +19,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<IEnumerable<Nest>> GetNestsAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/nests");
+            
             var response = await HandleRequest<IEnumerable<Nest>>(request, token);
 
             return response.Data;
@@ -55,7 +56,8 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<IEnumerable<Egg>> GetEggsByNestIdAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/nests/{id}/eggs");
-            var response = await HandleRequest<List<Egg>>(request, token).ConfigureAwait(false);
+
+            var response = await HandleRequest<List<Egg>>(request, token);
 
             return response.Data;
         }
@@ -68,7 +70,8 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<Egg> GetEggByIdAsync(int nestId, int eggId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/nests/{nestId}/eggs/{eggId}");
-            var response = await HandleRequest<Egg>(request, token).ConfigureAwait(false);
+
+            var response = await HandleRequest<Egg>(request, token);
 
             return response.Data;
         }

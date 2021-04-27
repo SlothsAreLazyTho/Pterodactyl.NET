@@ -21,6 +21,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<IEnumerable<User>> GetAllAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/users");
+
             var response = await HandleRequest<IEnumerable<User>>(request, token);
 
             return response.Data;
@@ -35,6 +36,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<User> GetUserByIdAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/users/{id}");
+
             var response = await HandleRequest<User>(request, token);
 
             return response.Data;
@@ -43,6 +45,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<User> GetUserByExternalIdAsync(string externalId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/users/external/{externalId}", Method.GET);
+            
             var response = await HandleRequest<User>(request, token);
 
             return response.Data;
@@ -103,6 +106,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
                 .AddJsonBody(userOptions);
 
             var response = await HandleRequest<User>(request, token);
+
             return response.Data;
         }
 
@@ -129,7 +133,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<bool> DeleteUserAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/users/{id}", Method.DELETE);
+
             var response = await HandleRequest(request, token);
+
             return response.IsSuccessful;
         }
 
