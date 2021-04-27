@@ -19,9 +19,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<IEnumerable<Nest>> GetNestsAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/nests");
-            var response = await HandleRequest<List<Nest>>(request, token);
+            var response = await HandleRequest<IEnumerable<Nest>>(request, token);
 
             return response.Data;
+        }
+
+        public async Task<IEnumerable<Nest>> GetNestsAsync(Func<Nest, bool> func, CancellationToken token = default)
+        {
+            var nests = await GetNestsAsync();
+            return nests.Where(func);
         }
 
         public async Task<IEnumerable<Nest>> FindNestsAsync(Func<Nest, bool> func, CancellationToken token = default)
@@ -30,17 +36,21 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return users.Where(func);
         }
 
-        public async Task<Nest> FindNestAsync(Func<Nest, bool> func, CancellationToken token = default)
+        public async Task<Nest> FindNestAsync(Func<Nest, bool> func, CancellationToken token = default) 
         {
-            var users = await GetNestsAsync(token);
-            return users.Where(func).FirstOrDefault();
+            var nest = await FindNestsAsync(func, token);
+            return nest.FirstOrDefault();
         }
 
         public async Task<Nest> GetNestByIdAsync(int id, CancellationToken token = default)
-            => await FindNestAsync(x => x.Id == id, token);
+        {
+            return await FindNestAsync(x => x.Id == id, token);
+        }
 
         public async Task<IEnumerable<Egg>> GetEggsByNestAsync(Nest nest, CancellationToken token = default)
-            => await GetEggsByNestIdAsync(nest.Id, token);
+        {
+            return await GetEggsByNestIdAsync(nest.Id, token);
+        }
 
         public async Task<IEnumerable<Egg>> GetEggsByNestIdAsync(int id, CancellationToken token = default)
         {
@@ -51,7 +61,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
         }
 
         public async Task<Egg> GetEggByIdAsync(Nest nest, int eggId, CancellationToken token = default)
-            => await GetEggByIdAsync(nest.Id, eggId, token);
+        {
+            return await GetEggByIdAsync(nest.Id, eggId, token);
+        } 
 
         public async Task<Egg> GetEggByIdAsync(int nestId, int eggId, CancellationToken token = default)
         {

@@ -15,7 +15,10 @@ namespace Pterodactyl.NET
     {
 
         internal RestClient HttpClient { get; set; }
+        
         internal JsonSerializer Serializer { get; set; }
+
+
 
         public ClientEndpoint Client { get; }
         public AdminEndpoint Admin { get; }
@@ -35,9 +38,6 @@ namespace Pterodactyl.NET
             HttpClient.AddDefaultHeader("Authorization", $"Bearer {key}");
             HttpClient.AddDefaultHeader("Accept", "Application/vnd.pterodactyl.v1+json");
 
-            Client = new ClientEndpoint(HttpClient);
-            Admin = new AdminEndpoint(HttpClient);
-
             Serializer = new JsonSerializer
             {
                 ContractResolver = new DefaultContractResolver
@@ -45,6 +45,9 @@ namespace Pterodactyl.NET
                     NamingStrategy = new CamelCaseNamingStrategy(false, false)
                 }
             };
+
+            Client = new ClientEndpoint(HttpClient);
+            Admin = new AdminEndpoint(HttpClient);
         }
 
     }

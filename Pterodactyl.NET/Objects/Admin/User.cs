@@ -33,7 +33,7 @@ namespace Pterodactyl.NET.Objects.Admin
         public string LastName { get; set; }
        
         
-        public string language { get; set; }
+        public string Language { get; set; }
 
         
         [JsonProperty("root_admin")]

@@ -38,5 +38,18 @@ namespace Pterodactyl.NET.Endpoints
             return response;
         }
 
+        public async Task<IRestResponse> HandleRequest(IRestRequest request, CancellationToken token = default)
+        {
+            var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
+
+            if (response.IsSuccessful)
+            {
+                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
+                throw new PterodactylException(body?.errors);
+            }
+
+            return response;
+        }
+
     }
 }

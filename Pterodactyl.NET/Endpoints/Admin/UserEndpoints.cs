@@ -20,9 +20,10 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<IEnumerable<User>> GetAllAsync(CancellationToken token = default)
         {
-            var request = new RestRequest("/api/application/users", Method.GET);
-            var response = await _client.ExecuteAsync<BaseListResponse<BaseResponse<User>>>(request, token).ConfigureAwait(false);
-            return response.Data.Data.Select(c => c.Attributes);
+            var request = new RestRequest("/api/application/users");
+            var response = await HandleRequest<IEnumerable<User>>(request, token);
+
+            return response.Data;
         }
 
         public async Task<IEnumerable<User>> GetAllAsync(Func<User, bool> func, CancellationToken token = default)
@@ -33,16 +34,18 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<User> GetUserByIdAsync(int id, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/users/{id}", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<User>>(request, token).ConfigureAwait(false);
-            return response.Data.Attributes;
+            var request = new RestRequest($"/api/application/users/{id}");
+            var response = await HandleRequest<User>(request, token);
+
+            return response.Data;
         }
 
         public async Task<User> GetUserByExternalIdAsync(string externalId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/users/external/{externalId}", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<User>>(request, token).ConfigureAwait(false);
-            return response.Data.Attributes;
+            var response = await HandleRequest<User>(request, token);
+
+            return response.Data;
         }
 
         public async Task<User> GetUserByFirstnameAsync(string firstName, CancellationToken token = default)
@@ -73,31 +76,66 @@ namespace Pterodactyl.NET.Endpoints.Admin
         {
             var user = new UserOptions();
             options.Invoke(user);
-            var request = new RestRequest($"/api/application/users", Method.POST).AddJsonBody(user);
-            var response = await _client.ExecuteAsync<BaseResponse<User>>(request, token).ConfigureAwait(false);
-            Console.Write(response.Content);
-            return response.Data.Attributes;
+            var request = new RestRequest($"/api/application/users", Method.POST)
+                .AddJsonBody(user);
+
+            var response = await HandleRequest<User>(request, token);
+
+            return response.Data;
+        }
+
+        public async Task<User> CreateUserAsync(UserOptions options, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/users", Method.POST)
+                .AddJsonBody(options);
+
+            var response = await HandleRequest<User>(request, token);
+
+            return response.Data;
         }
 
         public async Task<User> EditUserAsync(int id, Action<UserOptions> options, CancellationToken token = default)
         {
             var userOptions = new UserOptions();
             options.Invoke(userOptions);
-            var request = new RestRequest($"/api/application/users/{id}", Method.PATCH).AddJsonBody(userOptions);
-            var response = await _client.ExecuteAsync<BaseResponse<User>>(request, token).ConfigureAwait(false);
-            return response.Data.Attributes;
+
+            var request = new RestRequest($"/api/application/users/{id}", Method.PATCH)
+                .AddJsonBody(userOptions);
+
+            var response = await HandleRequest<User>(request, token);
+            return response.Data;
         }
 
-        public async Task<User> EditUserAsync(User user, Action<UserOptions> options, CancellationToken token = default) => await EditUserAsync(user.Id, options, token);
+        public async Task<User> EditUserAsync(User user, Action<UserOptions> options, CancellationToken token = default)
+        {
+            return await EditUserAsync(user.Id, options, token);
+        }
+
+        public async Task<User> EditUserAsync(int id, UserOptions options, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/users/{id}", Method.PATCH)
+                .AddJsonBody(options);
+
+            var response = await HandleRequest<User>(request, token);
+            
+            return response.Data;
+        }
+
+        public async Task<User> EditUserAsync(User user, UserOptions options, CancellationToken token = default)
+        {
+            return await EditUserAsync(user.Id, options, token);
+        }
 
         public async Task<bool> DeleteUserAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/users/{id}", Method.DELETE);
-            var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
+            var response = await HandleRequest(request, token);
             return response.IsSuccessful;
         }
 
-        public async Task<bool> DeleteUserAsync(User user, CancellationToken token = default) => await DeleteUserAsync(user.Id, token);
-
+        public async Task<bool> DeleteUserAsync(User user, CancellationToken token = default)
+        {
+            return await DeleteUserAsync(user.Id, token);
+        }
     }
 }

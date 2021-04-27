@@ -2,11 +2,9 @@
 
 using Newtonsoft.Json;
 
-using Pterodactyl.NET.Objects.Admin.EggAttributes;
-
 namespace Pterodactyl.NET.Objects.Admin
 {
-    public class Egg
+    public partial class Egg
     {
 
         public int Id { get; set; }
@@ -34,5 +32,41 @@ namespace Pterodactyl.NET.Objects.Admin
         [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
 
+    }
+
+    public partial class EggConfig
+    {
+        public EggStartup Startup { get; set; }
+
+        public string Stop { get; set; }
+
+        public EggLogs Logs { get; set; }
+    }
+
+    public partial class EggLogs
+    {
+        [JsonProperty("custom")]
+        public bool IsCustom { get; set; }
+
+        public string Location { get; set; }
+    }
+
+    public class EggScript
+    {
+        [JsonProperty("privileged")]
+        public bool IsPrivileged { get; set; }
+
+        public string Install { get; set; }
+
+        public string Entry { get; set; }
+
+        public string Container { get; set; }
+    }
+    
+    public class EggStartup
+    {
+        public string Done { get; set; }
+
+        public string[] userInteraction { get; set; }
     }
 }

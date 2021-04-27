@@ -10,10 +10,10 @@ namespace Pterodactyl.NET.Objects.Admin
         public int Id { get; set; }
 
         [JsonProperty("short")]
-        public string CountryCode { get; set; }
+        public string ShortCode { get; set; }
 
         [JsonProperty("long")]
-        public string Country { get; set; }
+        public string Description { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
