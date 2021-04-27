@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Pterodactyl.NET.Endpoints.Client;
-using Pterodactyl.NET.Objects.Admin;
+﻿using Pterodactyl.NET.Objects.Admin;
 
 using RestSharp;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Pterodactyl.NET.Endpoints.Admin
 {
@@ -20,43 +18,48 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<IEnumerable<Nest>> GetNestsAsync(CancellationToken token = default)
         {
-            var request = new RestRequest("/api/application/nests", Method.GET);
-            var response = await _client.ExecuteAsync<BaseListResponse<BaseResponse<Nest>>>(request, token).ConfigureAwait(false);
-            return response.Data.Data.Select(c => c.Attributes);
+            var request = new RestRequest("/api/application/nests");
+            var response = await HandleRequest<List<Nest>>(request, token);
+
+            return response.Data;
         }
 
-        public async Task<IEnumerable<Nest>> GetNestsAsync(Func<Nest, bool> func, CancellationToken token = default)
+        public async Task<IEnumerable<Nest>> FindNestsAsync(Func<Nest, bool> func, CancellationToken token = default)
         {
             var users = await GetNestsAsync(token);
             return users.Where(func);
         }
 
-        public async Task<Nest> GetNestByIdAsync(int id, CancellationToken token = default)
+        public async Task<Nest> FindNestAsync(Func<Nest, bool> func, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nests/{id}", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<Nest>>(request, token).ConfigureAwait(false);
-            return response.Data.Attributes;
+            var users = await GetNestsAsync(token);
+            return users.Where(func).FirstOrDefault();
         }
+
+        public async Task<Nest> GetNestByIdAsync(int id, CancellationToken token = default)
+            => await FindNestAsync(x => x.Id == id, token);
+
+        public async Task<IEnumerable<Egg>> GetEggsByNestAsync(Nest nest, CancellationToken token = default)
+            => await GetEggsByNestIdAsync(nest.Id, token);
 
         public async Task<IEnumerable<Egg>> GetEggsByNestIdAsync(int id, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nests/{id}/eggs", Method.GET);
-            var response = await _client.ExecuteAsync<BaseListResponse<BaseResponse<Egg>>>(request, token).ConfigureAwait(false);
-            return response.Data.Data.Select(c => c.Attributes);
+            var request = new RestRequest($"/api/application/nests/{id}/eggs");
+            var response = await HandleRequest<List<Egg>>(request, token).ConfigureAwait(false);
+
+            return response.Data;
         }
 
-        public async Task<IEnumerable<Egg>> GetEggsByNestAsync(Nest nest, CancellationToken token = default) => await GetEggsByNestIdAsync(nest.Id);
+        public async Task<Egg> GetEggByIdAsync(Nest nest, int eggId, CancellationToken token = default)
+            => await GetEggByIdAsync(nest.Id, eggId, token);
 
         public async Task<Egg> GetEggByIdAsync(int nestId, int eggId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nests/{nestId}/eggs/{eggId}", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<Egg>>(request, token).ConfigureAwait(false);
-            return response.Data.Attributes;
+            var request = new RestRequest($"/api/application/nests/{nestId}/eggs/{eggId}");
+            var response = await HandleRequest<Egg>(request, token).ConfigureAwait(false);
+
+            return response.Data;
         }
-
-        public async Task<Egg> GetEggByIdAsync(Nest nest, int eggId, CancellationToken token = default) => await GetEggByIdAsync(nest.Id, eggId, token);
-
-
 
     }
 }

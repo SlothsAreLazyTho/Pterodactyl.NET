@@ -1,23 +1,23 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 using Pterodactyl.NET.Endpoints.Admin;
 using Pterodactyl.NET.Endpoints.Client;
-using Pterodactyl.NET.Exceptions;
 
 using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
+
+using System;
+using System.Text.RegularExpressions;
 
 namespace Pterodactyl.NET
 {
     public class Pterodactyl
     {
 
-        internal readonly RestClient _client;
-
+        internal RestClient HttpClient { get; set; }
+        internal JsonSerializer Serializer { get; set; }
 
         public ClientEndpoint Client { get; }
-
         public AdminEndpoint Admin { get; }
 
         public Pterodactyl(string hostname, string key)
@@ -30,13 +30,21 @@ namespace Pterodactyl.NET
             var regex = new Regex("http(s?)://");
             var host = regex.Match(hostname).Success ? hostname : $"https://{hostname}/";
 
-            _client = new RestClient(host);
-            _client.UseSerializer<JsonNetSerializer>();
-            _client.AddDefaultHeader("Authorization", $"Bearer {key}");
-            _client.AddDefaultHeader("Accept", "Application/vnd.pterodactyl.v1+json");
-            
-            Client = new ClientEndpoint(_client);
-            Admin = new AdminEndpoint(_client);
+            HttpClient = new RestClient(host);
+            HttpClient.UseSerializer<NewtonsoftSerializer>();
+            HttpClient.AddDefaultHeader("Authorization", $"Bearer {key}");
+            HttpClient.AddDefaultHeader("Accept", "Application/vnd.pterodactyl.v1+json");
+
+            Client = new ClientEndpoint(HttpClient);
+            Admin = new AdminEndpoint(HttpClient);
+
+            Serializer = new JsonSerializer
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy(false, false)
+                }
+            };
         }
 
     }

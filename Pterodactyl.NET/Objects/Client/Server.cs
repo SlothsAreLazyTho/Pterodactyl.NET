@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 using Pterodactyl.NET.Objects.Client.ServerAttributes;
+
+using System.Diagnostics;
 
 namespace Pterodactyl.NET.Objects.Client
 {
@@ -24,7 +25,6 @@ namespace Pterodactyl.NET.Objects.Client
 
         public ServerLimits Limits { get; set; }
 
-        [JsonProperty("feature_limits")]
         public ServerFeatureLimits FeatureLimits { get; set; }
 
     }

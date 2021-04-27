@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Newtonsoft.Json;
-
-using Pterodactyl.NET.Exceptions;
-using Pterodactyl.NET.Objects;
+﻿using Pterodactyl.NET.Objects;
 using Pterodactyl.NET.Objects.Client;
 using Pterodactyl.NET.Objects.Client.ServerAttributes;
 
 using RestSharp;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Pterodactyl.NET.Endpoints.Client
 {
@@ -22,97 +19,82 @@ namespace Pterodactyl.NET.Endpoints.Client
         internal ServerEndpoints(IRestClient client) : base(client) 
         { }
 
-        public async Task<IEnumerable<Server>> GetAllAsync(CancellationToken token = default)
+        public async Task<IEnumerable<Server>> GetServersAsync(CancellationToken token = default)
         {
-            var request = new RestRequest("/api/client", Method.GET);
-            var response = await _client.ExecuteAsync<BaseListResponse<BaseResponse<Server>>>(request, token).ConfigureAwait(false);
+            var request = new RestRequest("/api/client");
+            var response = await HandleRequest<BaseAttributes<List<Server>>>(request, token);
 
-            /* Need to find a way for this but will be solved */
-            if (!response.IsSuccessful)
-            {
-                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body.errors);
-            }
-
-            return response.Data.Data.Select(c => c.Attributes);
+            return response.Data.Attributes;
         }
 
-        public async Task<IEnumerable<Server>> GetAllAsync(Func<Server, bool> func, CancellationToken token = default)
+        public async Task<IEnumerable<Server>> FindServersAsync(Func<Server, bool> func, CancellationToken token = default)
         {
-            var servers = await GetAllAsync(token);
+            var servers = await GetServersAsync(token);
             return servers.Where(func);
         }
-        
+
+        public async Task<Server> FindServerAsync(Func<Server, bool> func, CancellationToken token = default)
+        {
+            var servers = await GetServersAsync(token);
+            return servers.Where(func).FirstOrDefault();
+        }
+
+        public async Task<Server> GetServerByIdAsync(Server server, CancellationToken token = default)
+        {
+            return await GetServerByIdAsync(server.Id, token);
+        }
+
         public async Task<Server> GetServerByIdAsync(string id, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/client/servers/{id}", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<Server>>(request, token).ConfigureAwait(false);
+            return await FindServerAsync(x => x.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase), token);
+        }
 
-            if (!response.IsSuccessful)
-            {
-                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body.errors);
-            }
-
-            return response.Data.Attributes;
+        public async Task<ServerResource> GetServerResourceAsync(Server server, CancellationToken token = default)
+        {
+            return await GetServerResourceAsync(server.Id, token);
         }
                 
-        public async Task<ServerResource> GetServerResource(string id, CancellationToken token = default)
+        public async Task<ServerResource> GetServerResourceAsync(string id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/client/servers/{id}/utilization", Method.GET);
-            var response = await _client.ExecuteAsync<BaseResponse<ServerResource>>(request, token).ConfigureAwait(false);
+            var response = await HandleRequest<ServerResource>(request, token);
 
-            if (!response.IsSuccessful)
-            {
-                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body.errors);
-            }
-
-            return response.Data.Attributes;
+            return response.Data;
         }
 
-        public async Task<ServerResource> GetServerResource(Server server, CancellationToken token = default) => await GetServerResource(server.Id, token);
+        public async Task<bool> SendCommandAsync(Server server, string command, CancellationToken token = default)
+            => await SendCommandAsync(server.Id, command, token);
 
         public async Task<bool> SendCommandAsync(string id, string command, CancellationToken token = default)
         {
-            var json = new Dictionary<string, string>() {
-                { "command", command }
+            var payload = new
+            {
+                Command = command
             };
 
-            var request = new RestRequest($"/api/client/servers/{id}/command", Method.POST).AddJsonBody(json);
-            var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
-
-
-            if (!response.IsSuccessful)
-            {
-                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body.errors);
-            }
+            var request = new RestRequest($"/api/client/servers/{id}/command", Method.POST)
+                .AddJsonBody(payload);
+            var response = await HandleRequestRaw<object>(request, token);
 
             return response.IsSuccessful;
         }
 
-        public async Task<bool> SendCommandAsync(Server server, string command, CancellationToken token = default) => await SendCommandAsync(server.Id, command, token);
+        public async Task<bool> SendPowerSignalAsync(Server server, ServerRunState state, CancellationToken token = default)
+            => await SendPowerSignalAsync(server.Id, state, token);
 
         public async Task<bool> SendPowerSignalAsync(string id, ServerRunState state, CancellationToken token = default)
         {
-            var json = new Dictionary<string, string>() {
-                { "signal", state.ToString().ToLower() }
+            var payload = new
+            {
+                Signal = state.ToString().ToLower()
             };
 
-            var request = new RestRequest($"/api/client/servers/{id}/power", Method.POST).AddJsonBody(json);
-            var response = await _client.ExecuteAsync(request, token).ConfigureAwait(false);
-
-            if (!response.IsSuccessful)
-            {
-                var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body.errors);
-            }
+            var request = new RestRequest($"/api/client/servers/{id}/power", Method.POST)
+                .AddJsonBody(payload);
+            var response = await HandleRequestRaw<object>(request, token);
 
             return response.IsSuccessful;
         }
-
-        public async Task<bool> SendPowerSignalAsync(Server server, ServerRunState state, CancellationToken token = default) => await SendPowerSignalAsync(server.Id, state, token);
 
     }
 }
