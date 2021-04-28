@@ -70,6 +70,6 @@ namespace Pterodactyl.NET.Objects.Admin
     {
         public string Done { get; set; }
 
-        public string[] userInteraction { get; set; }
+        public string[] UserInteraction { get; set; }
     }
 }

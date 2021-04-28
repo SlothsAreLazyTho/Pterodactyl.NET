@@ -36,7 +36,7 @@ namespace Pterodactyl.NET.Endpoints
             if (!response.IsSuccessful)
             {
                 var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body?.errors);
+                throw new PterodactylException(body?.Errors);
             }
 
             return response;
@@ -50,7 +50,7 @@ namespace Pterodactyl.NET.Endpoints
             if (!response.IsSuccessful)
             {
                 var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body?.errors);
+                throw new PterodactylException(body?.Errors);
             }
 
             return response;
@@ -63,7 +63,7 @@ namespace Pterodactyl.NET.Endpoints
             if (!response.IsSuccessful)
             {
                 var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body?.errors);
+                throw new PterodactylException(body?.Errors);
             }
 
             return response.Data.Attributes;
@@ -77,7 +77,7 @@ namespace Pterodactyl.NET.Endpoints
             if (!response.IsSuccessful)
             {
                 var body = JsonConvert.DeserializeObject<BaseError>(response.Content);
-                throw new PterodactylException(body?.errors);
+                throw new PterodactylException(body?.Errors);
             }
 
             return new PterodactylList<T>(response.Data);

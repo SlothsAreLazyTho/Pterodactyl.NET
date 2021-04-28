@@ -32,19 +32,19 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<IEnumerable<Location>> GetLocationsAsync(Func<Location, bool> func, CancellationToken token = default)
         {
-            var locations = await GetLocationsAsync();
+            var locations = await GetLocationsAsync(token);
             return locations.Where(func);
         }
 
         public async Task<Location> GetLocationByShortCodeAsync(string code, CancellationToken token = default)
         {
-            var locations = await GetLocationsAsync();
+            var locations = await GetLocationsAsync(token);
             return locations.Where(l => l.ShortCode == code).FirstOrDefault();
         }
 
         public async Task<Location> GetLocationByDescriptionAsync(string description, CancellationToken token = default)
         {
-            var locations = await GetLocationsAsync();
+            var locations = await GetLocationsAsync(token);
             return locations.Where(l => l.Description == description).FirstOrDefault();
         }
 

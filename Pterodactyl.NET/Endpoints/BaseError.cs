@@ -5,7 +5,7 @@ namespace Pterodactyl.NET.Endpoints
     class BaseError
     {
 
-        public PterodactylError[] errors { get; set; }
+        public PterodactylError[] Errors { get; set; }
 
     }
 }

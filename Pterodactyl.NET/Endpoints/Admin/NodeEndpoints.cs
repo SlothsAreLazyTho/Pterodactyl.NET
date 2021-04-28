@@ -151,7 +151,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<IEnumerable<Allocation>> GetAllocationsAsync(int nodeId, Func<Allocation, bool> func, CancellationToken token = default)
         {
-            var allocations = await GetAllocationsAsync(nodeId);
+            var allocations = await GetAllocationsAsync(nodeId, token);
             return allocations.Where(func);
         }
 

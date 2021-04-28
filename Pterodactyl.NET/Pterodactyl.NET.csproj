@@ -1,7 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net5.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Sloths Are Lazy Tho</Authors>
+    <Description>.NET Library to communicate with the pterodactyl API.</Description>
+    <RepositoryUrl>https://github.com/SlothsAreLazyTho/Pterodactyl.NET</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <DocumentationFile>C:\Users\Chino\Documents\GitHub\Pterodactyl.NET\Pterodactyl.NET\Pterodactyl.NET.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,9 +18,5 @@
     <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.11.7" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Objects\Admin\ServerAttributes\" />
-  </ItemGroup>
-
+  
 </Project>

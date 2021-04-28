@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pterodactyl.NET\Pterodactyl.NET.csproj" />
+    <Reference Include="Pterodactyl.NET">
+      <HintPath>..\..\..\..\Desktop\Pterodactyl.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
