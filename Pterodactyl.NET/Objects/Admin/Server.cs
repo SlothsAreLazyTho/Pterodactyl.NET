@@ -41,6 +41,8 @@ namespace Pterodactyl.NET.Objects.Admin
         [JsonProperty("egg")]
         public int EggId { get; set; }
 
+        public ServerContainer Container { get; set; }
+
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
 
