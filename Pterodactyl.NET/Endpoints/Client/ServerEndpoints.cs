@@ -24,7 +24,7 @@ namespace Pterodactyl.NET.Endpoints.Client
         {
             var request = new RestRequest("/api/client");
             
-            var response = await HandleRequest<BaseAttributes<List<Server>>>(request, token);
+            var response = await HandleRequest<BaseAttributes<IEnumerable<Server>>>(request, token);
 
             return response.Data.Attributes;
         }
@@ -43,17 +43,17 @@ namespace Pterodactyl.NET.Endpoints.Client
 
         public async Task<Server> GetServerByIdAsync(Server server, CancellationToken token = default)
         {
-            return await GetServerByIdAsync(server.Id, token);
+            return await GetServerByIdAsync(server.Identifier, token);
         }
 
         public async Task<Server> GetServerByIdAsync(string id, CancellationToken token = default)
         {
-            return await FindServerAsync(x => x.Id.Equals(id, StringComparison.CurrentCultureIgnoreCase), token);
+            return await FindServerAsync(x => x.Identifier.Equals(id, StringComparison.CurrentCultureIgnoreCase), token);
         }
 
         public async Task<ServerResource> GetServerResourceAsync(Server server, CancellationToken token = default)
         {
-            return await GetServerResourceAsync(server.Id, token);
+            return await GetServerResourceAsync(server.Identifier, token);
         }
                 
         public async Task<ServerResource> GetServerResourceAsync(string id, CancellationToken token = default)
@@ -67,7 +67,7 @@ namespace Pterodactyl.NET.Endpoints.Client
 
         public async Task<bool> SendCommandAsync(Server server, string command, CancellationToken token = default)
         {
-            return await SendCommandAsync(server.Id, command, token);
+            return await SendCommandAsync(server.Identifier, command, token);
         }
 
         public async Task<bool> SendCommandAsync(string id, string command, CancellationToken token = default)
@@ -87,7 +87,7 @@ namespace Pterodactyl.NET.Endpoints.Client
 
         public async Task<bool> SendPowerSignalAsync(Server server, ServerRunState state, CancellationToken token = default)
         {
-            return await SendPowerSignalAsync(server.Id, state, token);
+            return await SendPowerSignalAsync(server.Identifier, state, token);
         }
 
         public async Task<bool> SendPowerSignalAsync(string id, ServerRunState state, CancellationToken token = default)

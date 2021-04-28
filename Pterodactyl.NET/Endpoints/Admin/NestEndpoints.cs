@@ -1,4 +1,5 @@
-﻿using Pterodactyl.NET.Objects.Admin;
+﻿using Pterodactyl.NET.Objects;
+using Pterodactyl.NET.Objects.Admin;
 
 using RestSharp;
 
@@ -19,10 +20,10 @@ namespace Pterodactyl.NET.Endpoints.Admin
         public async Task<IEnumerable<Nest>> GetNestsAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/nests");
-            
-            var response = await HandleRequest<IEnumerable<Nest>>(request, token);
 
-            return response.Data;
+            var response = await HandleRequest<BaseAttributes<IEnumerable<Nest>>>(request, token);
+
+            return response.Data.Attributes;
         }
 
         public async Task<IEnumerable<Nest>> GetNestsAsync(Func<Nest, bool> func, CancellationToken token = default)
@@ -43,10 +44,11 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return nest.FirstOrDefault();
         }
 
-        public async Task<Nest> GetNestByIdAsync(int id, CancellationToken token = default)
+        public async Task<Nest> FindNestByIdAsync(int id, CancellationToken token = default)
         {
             return await FindNestAsync(x => x.Id == id, token);
         }
+
 
         public async Task<IEnumerable<Egg>> GetEggsByNestAsync(Nest nest, CancellationToken token = default)
         {
@@ -62,12 +64,12 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<Egg> GetEggByIdAsync(Nest nest, int eggId, CancellationToken token = default)
+        public async Task<Egg> FindEggByIdAsync(Nest nest, int eggId, CancellationToken token = default)
         {
-            return await GetEggByIdAsync(nest.Id, eggId, token);
+            return await FindEggByIdAsync(nest.Id, eggId, token);
         } 
 
-        public async Task<Egg> GetEggByIdAsync(int nestId, int eggId, CancellationToken token = default)
+        public async Task<Egg> FindEggByIdAsync(int nestId, int eggId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/nests/{nestId}/eggs/{eggId}");
 

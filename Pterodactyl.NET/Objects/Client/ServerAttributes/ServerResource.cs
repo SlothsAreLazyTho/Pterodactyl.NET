@@ -1,4 +1,4 @@
-﻿using Pterodactyl.NET.Objects.Client.ServerAttributes.ServerComponents;
+﻿using Pterodactyl.NET.Objects.Components;
 
 namespace Pterodactyl.NET.Objects.Client.ServerAttributes
 {

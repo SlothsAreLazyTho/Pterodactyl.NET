@@ -9,6 +9,7 @@ using Pterodactyl.NET.Objects.Admin;
 
 using RestSharp;
 using Pterodactyl.NET.Objects.Admin.UserAttributes;
+using Pterodactyl.NET.Objects;
 
 namespace Pterodactyl.NET.Endpoints.Admin
 {
@@ -22,9 +23,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
         {
             var request = new RestRequest("/api/application/users");
 
-            var response = await HandleRequest<IEnumerable<User>>(request, token);
+            var response = await HandleRequest<BaseAttributes<IEnumerable<User>>>(request, token);
 
-            return response.Data;
+            return response.Data.Attributes;
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync(Func<User, bool> func, CancellationToken token = default)
@@ -33,7 +34,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return users.Where(func);
         }
 
-        public async Task<User> GetUserByIdAsync(int id, CancellationToken token = default)
+        public async Task<User> FindUserByIdAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/users/{id}");
 
@@ -42,7 +43,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<User> GetUserByExternalIdAsync(string externalId, CancellationToken token = default)
+        public async Task<User> FindUserByExternalIdAsync(string externalId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/users/external/{externalId}", Method.GET);
             
@@ -51,25 +52,25 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<User> GetUserByFirstnameAsync(string firstName, CancellationToken token = default)
+        public async Task<User> FindUserByFirstnameAsync(string firstName, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
             return users.Where(c => c.FirstName == firstName).FirstOrDefault();
         }
 
-        public async Task<User> GetUserByLastnameAsync(string lastName, CancellationToken token = default)
+        public async Task<User> FindUserByLastnameAsync(string lastName, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
             return users.Where(c => c.LastName == lastName).FirstOrDefault();
         }
 
-        public async Task<User> GetUserByUsernameAsync(string username, CancellationToken token = default)
+        public async Task<User> FindUserByUsernameAsync(string username, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
             return users.Where(c => c.Username == username).FirstOrDefault();
         }
 
-        public async Task<User> GetUserByUUIDAsync(string uuid, CancellationToken token = default)
+        public async Task<User> FindUserByUUIDAsync(string uuid, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
             return users.Where(c => c.Uuid == uuid).FirstOrDefault();

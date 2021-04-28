@@ -4,6 +4,7 @@ using Pterodactyl.NET.Exceptions;
 
 using RestSharp;
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,6 +30,7 @@ namespace Pterodactyl.NET.Endpoints
         {
             var response = await _client.ExecuteAsync<BaseResponse<T>>(request, token).ConfigureAwait(false);
 
+            Console.WriteLine($"[{response.StatusCode}] {response.ResponseUri}");
             if (response.IsSuccessful)
             {
                 var body = JsonConvert.DeserializeObject<BaseError>(response.Content);

@@ -13,8 +13,10 @@ namespace Pterodactyl.NET.Objects.Client
 
         public string Uuid { get; set; }
 
+        public int Id { get; set; }
+
         [JsonProperty("identifier")]
-        public string Id { get; set; }
+        public string Identifier { get; set; }
 
         public string Name { get; set; }
 

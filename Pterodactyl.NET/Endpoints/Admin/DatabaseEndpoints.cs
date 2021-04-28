@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Pterodactyl.NET.Objects;
 using Pterodactyl.NET.Objects.Admin;
 using Pterodactyl.NET.Objects.Admin.DatabaseAttributes;
 
@@ -22,29 +23,29 @@ namespace Pterodactyl.NET.Endpoints.Admin
         {
             var request = new RestRequest($"/api/application/servers/{id}/databases");
 
-            var response = await HandleRequest<IEnumerable<Database>>(request, token);
+            var response = await HandleRequest<BaseAttributes<IEnumerable<Database>>>(request, token);
 
-            return response.Data;
-        }
-        
-        public async Task<IEnumerable<Database>> GetDatabasesByIdAsync(int serverId, int id, CancellationToken token = default)
-        {
-            var request = new RestRequest($"/api/application/servers/{serverId}/databases/{id}");
-
-            var response = await HandleRequest<IEnumerable<Database>>(request, token);
-
-            return response.Data;
-
-        }
-
-        public async Task<IEnumerable<Database>> GetDatabasesByIdAsync(Server server, int id, CancellationToken token = default)
-        {
-            return await GetDatabasesByIdAsync(server.Id, id, token);
+            return response.Data.Attributes;
         }
 
         public async Task<IEnumerable<Database>> GetDatabasesByIdAsync(Server server, CancellationToken token = default)
         {
             return await GetDatabasesByIdAsync(server.Id, token);
+        }
+
+        public async Task<Database> FindDatabaseByIdAsync(int serverId, int id, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/servers/{serverId}/databases/{id}");
+
+            var response = await HandleRequest<Database>(request, token);
+
+            return response.Data;
+
+        }
+
+        public async Task<Database> FindDatabaseByIdAsync(Server server, int id, CancellationToken token = default)
+        {
+            return await FindDatabaseByIdAsync(server.Id, id, token);
         }
 
         public async Task<Database> CreateDatabaseAsync(int serverId, Action<DatabaseOptions> options, CancellationToken token = default)

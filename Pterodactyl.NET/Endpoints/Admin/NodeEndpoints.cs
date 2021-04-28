@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Pterodactyl.NET.Objects;
 using Pterodactyl.NET.Objects.Admin;
 using Pterodactyl.NET.Objects.Admin.NodeAttributes;
 
@@ -21,9 +22,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
         {
             var request = new RestRequest("/api/application/nodes");
 
-            var response = await HandleRequest<IEnumerable<Node>>(request, token);
+            var response = await HandleRequest<BaseAttributes<IEnumerable<Node>>>(request, token);
 
-            return response.Data;
+            return response.Data.Attributes;
         }
 
         public async Task<IEnumerable<Node>> GetNodesAsync(Func<Node, bool> func, CancellationToken token = default)
@@ -141,18 +142,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
         {
             var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
 
-            var response = await HandleRequest<IEnumerable<Allocation>>(request, token);
+            var response = await HandleRequest<BaseAttributes<IEnumerable<Allocation>>>(request, token);
 
-            return response.Data;
+            return response.Data.Attributes;
         }
 
         public async Task<IEnumerable<Allocation>> GetAllocationsAsync(int nodeId, Func<Allocation, bool> func, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
-
-            var response = await HandleRequest<IEnumerable<Allocation>>(request, token);
-
-            return response.Data.Where(func);
+            var allocations = await GetAllocationsAsync(nodeId);
+            return allocations.Where(func);
         }
 
         public async Task<IEnumerable<Allocation>> GetAllocationsAsync(Node node, CancellationToken token = default)

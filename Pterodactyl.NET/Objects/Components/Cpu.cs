@@ -1,4 +1,4 @@
-﻿namespace Pterodactyl.NET.Objects.Client.ServerAttributes.ServerComponents
+﻿namespace Pterodactyl.NET.Objects.Components
 {
     public class Cpu
     {
