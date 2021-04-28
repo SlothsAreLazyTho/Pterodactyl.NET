@@ -35,7 +35,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return users.Where(func);
         }
 
-        public async Task<Node> GetNodeByIdAsync(int id, CancellationToken token = default)
+        public async Task<Node> FindNodeByIdAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/nodes/{id}");
 
@@ -137,8 +137,6 @@ namespace Pterodactyl.NET.Endpoints.Admin
         {
             return await DeleteNodeAsync(node.Id, token);
         }
-
-
 
         public async Task<PterodactylList<Allocation>> GetAllocationsAsync(int nodeId, CancellationToken token = default)
         {

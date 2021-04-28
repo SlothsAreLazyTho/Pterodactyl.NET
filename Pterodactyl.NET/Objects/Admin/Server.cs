@@ -32,7 +32,14 @@ namespace Pterodactyl.NET.Objects.Admin
 
         public ServerFeatureLimits FeatureLimits { get; set; }
 
-        public int User { get; set; }
+        [JsonProperty("user")]
+        public int OwnerId { get; set; }
+
+        [JsonProperty("node")]
+        public int NodeId { get; set; }
+
+        [JsonProperty("egg")]
+        public int EggId { get; set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }

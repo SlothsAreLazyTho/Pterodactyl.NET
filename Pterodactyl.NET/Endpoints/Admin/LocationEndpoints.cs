@@ -53,7 +53,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             var request = new RestRequest($"/api/application/locations/{id}");
             var response = await HandleRequest<Location>(request, token); 
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Location> CreateLocationAsync(Action<LocationOptions> options, CancellationToken token = default)
@@ -65,7 +65,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Location>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Location> CreateLocationAsync(LocationOptions options, CancellationToken token = default)
@@ -75,7 +75,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Location>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Location> EditLocationAsync(int id, Action<LocationOptions> options, CancellationToken token = default)
@@ -88,7 +88,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Location>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Location> EditLocationAsync(Location location, Action<LocationOptions> options, CancellationToken token = default)
@@ -103,7 +103,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Location>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Location> EditLocationAsync(Location location, LocationOptions options, CancellationToken token = default)

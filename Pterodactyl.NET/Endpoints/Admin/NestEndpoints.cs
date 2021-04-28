@@ -63,7 +63,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<List<Egg>>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Egg> FindEggByIdAsync(Nest nest, int eggId, CancellationToken token = default)
@@ -77,7 +77,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Egg>(request, token);
 
-            return response.Data;
+            return response;
         }
 
     }
