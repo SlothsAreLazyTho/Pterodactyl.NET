@@ -2,6 +2,7 @@
 
 namespace Pterodactyl.NET.Objects.Client.ServerAttributes
 {
+
     public class ServerResource
     {
 

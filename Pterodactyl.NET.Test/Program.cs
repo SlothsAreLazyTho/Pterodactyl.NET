@@ -9,7 +9,7 @@ namespace Pterodactyl.NET.Test
     {
         static async Task Main(string[] args)
         {
-            var key = Environment.GetEnvironmentVariable("Pterodactyl_ClientKey", EnvironmentVariableTarget.User);
+            /*var key = Environment.GetEnvironmentVariable("Pterodactyl_ClientKey", EnvironmentVariableTarget.User);
             var adminKey = Environment.GetEnvironmentVariable("Pterodactyl_AdminKey", EnvironmentVariableTarget.User);
             var pterodactyl = new Pterodactyl("panel.ghservers.eu", adminKey);
 
@@ -17,10 +17,9 @@ namespace Pterodactyl.NET.Test
             var userId = server.First();
             var user = await pterodactyl.Admin.Users.FindUserByIdAsync(userId.Id);
             
-            
             Console.WriteLine($"{user.Email} is the owner of the server \"{server.First().Name}\"");
 
-            Debugger.Break();
+            Debugger.Break();*/
         }
     }
 }
