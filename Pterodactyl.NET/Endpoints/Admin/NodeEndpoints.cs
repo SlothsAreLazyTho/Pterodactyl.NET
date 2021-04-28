@@ -17,7 +17,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         internal NodeEndpoints(IRestClient client) : base(client)
         { }
 
-        public async Task<IEnumerable<Node>> GetAllNodesAsync(CancellationToken token = default)
+        public async Task<IEnumerable<Node>> GetNodesAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/nodes");
 
@@ -26,9 +26,9 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<IEnumerable<Node>> GetAllNodesAsync(Func<Node, bool> func, CancellationToken token = default)
+        public async Task<IEnumerable<Node>> GetNodesAsync(Func<Node, bool> func, CancellationToken token = default)
         {
-            var users = await GetAllNodesAsync(token);
+            var users = await GetNodesAsync(token);
             return users.Where(func);
         }
 
@@ -43,27 +43,27 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
         public async Task<IEnumerable<Node>> FindNodesByPublicAsync(bool isPublic, CancellationToken token = default)
         {
-            return await GetAllNodesAsync(c => c.Public == isPublic, token);
+            return await GetNodesAsync(c => c.Public == isPublic, token);
         }
 
         public async Task<IEnumerable<Node>> FindNodesByFqdnAsync(string fqdn, CancellationToken token = default)
         {
-            return await GetAllNodesAsync(c => c.Fqdn == fqdn, token);
+            return await GetNodesAsync(c => c.Fqdn == fqdn, token);
         }
 
         public async Task<IEnumerable<Node>> FindNodesByLocationIdAsync(int id, CancellationToken token = default)
         {
-            return await GetAllNodesAsync(c => c.LocationId == id, token);
+            return await GetNodesAsync(c => c.LocationId == id, token);
         }
 
         public async Task<IEnumerable<Node>> FindNodesByLocationAsync(Location location, CancellationToken token = default)
         {
-            return await GetAllNodesAsync(c => c.LocationId == location.Id, token);
+            return await GetNodesAsync(c => c.LocationId == location.Id, token);
         }
 
         public async Task<IEnumerable<Node>> FindMainstanceNodesAsync(CancellationToken token = default)
         {
-            return await GetAllNodesAsync(c => c.IsMainstanceMode == true, token);
+            return await GetNodesAsync(c => c.IsMainstanceMode == true, token);
         }
 
         public async Task<Node> CreateNodeAsync(Action<NodeOptions> options, CancellationToken token = default)

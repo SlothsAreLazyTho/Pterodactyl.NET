@@ -2,5 +2,9 @@
 {
     public class Server
     {
+
+        public int Id { get; set; }
+
+
     }
 }

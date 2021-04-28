@@ -18,7 +18,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
         internal LocationEndpoints(IRestClient client) : base(client)
         { }
 
-        public async Task<IEnumerable<Location>> GetAllAsync(CancellationToken token = default) ///api/application/locations
+        public async Task<IEnumerable<Location>> GetLocationsAsync(CancellationToken token = default) ///api/application/locations
         {
             var request = new RestRequest("/api/application/locations");
             
@@ -27,7 +27,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             return response.Data;
         }
 
-        public async Task<IEnumerable<Location>> GetAllAsync(Func<Location, bool> func, CancellationToken token = default)
+        public async Task<IEnumerable<Location>> GetLocationsAsync(Func<Location, bool> func, CancellationToken token = default)
         {
             var locations = await GetAllAsync();
             return locations.Where(func);
