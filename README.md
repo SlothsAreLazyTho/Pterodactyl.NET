@@ -1,6 +1,9 @@
 ![image](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/main/Pterodactyl.NET.Resources/logo.png)
 [![GitHub License](https://img.shields.io/github/license/SlothsAreLazyTho/Pterodactyl.NET)](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/master/LICENSE)
-## Pterodactyl.NET
+# Pterodactyl.NET
+
+## Quick notes before reading...
+This wrapper is not finished and will be updated very reguaraly , Please be patient as it's uncompleted and will be finished.
 
 ## How to start
 
@@ -25,7 +28,9 @@ Dowload from releases [here](https://github.com/KadePcGames/Sharpdactyl/releases
 
 
 ## Latest Release
-Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/releases) or get it via NuGet.
+Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/releases).
+
+I will take care to get this project up and running on Nuget!
 
 
 
