@@ -20,13 +20,15 @@ namespace Pterodactyl.NET.Endpoints.Client
         { }
 
 
-        public async Task<IEnumerable<Server>> GetServersAsync(CancellationToken token = default)
+        public async Task<PterodactylList<Server>> GetServersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client");
             
-            var response = await HandleRequest<BaseAttributes<IEnumerable<Server>>>(request, token);
+            var response = await HandleArrayRequest<BaseAttributes<Server>>(request, token);
 
-            return response.Data.Attributes;
+            var list = response.Select(rsp => rsp.Attributes);
+
+            return new PterodactylList<Server>(list);
         }
 
         public async Task<IEnumerable<Server>> GetServersAsync(Func<Server, bool> func, CancellationToken token = default)
@@ -62,7 +64,7 @@ namespace Pterodactyl.NET.Endpoints.Client
             
             var response = await HandleRequest<ServerResource>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<bool> SendCommandAsync(Server server, string command, CancellationToken token = default)

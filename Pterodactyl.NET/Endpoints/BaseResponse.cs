@@ -1,9 +1,12 @@
-﻿namespace Pterodactyl.NET.Endpoints
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Pterodactyl.NET.Endpoints
 {
     public class BaseResponse<T>
     {
 
-        public T Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
 
     }
 }

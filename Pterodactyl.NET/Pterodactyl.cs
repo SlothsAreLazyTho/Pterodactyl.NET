@@ -5,6 +5,7 @@ using Pterodactyl.NET.Endpoints.Admin;
 using Pterodactyl.NET.Endpoints.Client;
 
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 using System;
 using System.Text.RegularExpressions;
@@ -17,7 +18,6 @@ namespace Pterodactyl.NET
         internal RestClient HttpClient { get; set; }
         
         internal JsonSerializer Serializer { get; set; }
-
 
 
         public ClientEndpoint Client { get; }

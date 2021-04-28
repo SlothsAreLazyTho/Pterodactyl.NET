@@ -19,13 +19,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
         internal UserEndpoints(IRestClient client) : base(client)
         { }
 
-        public async Task<IEnumerable<User>> GetUsersAsync(CancellationToken token = default)
+        public async Task<PterodactylList<User>> GetUsersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/users");
 
-            var response = await HandleRequest<BaseAttributes<IEnumerable<User>>>(request, token);
+            var response = await HandleArrayRequest<BaseAttributes<User>>(request, token);
 
-            return response.Data.Attributes;
+            var list = response.Select(rsp => rsp.Attributes);
+
+            return new PterodactylList<User>(list);
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync(Func<User, bool> func, CancellationToken token = default)
@@ -40,7 +42,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<User>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<User> FindUserByExternalIdAsync(string externalId, CancellationToken token = default)
@@ -49,7 +51,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
             
             var response = await HandleRequest<User>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<User> FindUserByFirstnameAsync(string firstName, CancellationToken token = default)
@@ -85,7 +87,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<User>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<User> CreateUserAsync(UserOptions options, CancellationToken token = default)
@@ -95,7 +97,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<User>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<User> EditUserAsync(int id, Action<UserOptions> options, CancellationToken token = default)
@@ -108,7 +110,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<User>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<User> EditUserAsync(User user, Action<UserOptions> options, CancellationToken token = default)
@@ -123,7 +125,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<User>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<User> EditUserAsync(User user, UserOptions options, CancellationToken token = default)

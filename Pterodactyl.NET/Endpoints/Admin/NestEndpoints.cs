@@ -17,13 +17,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
         { }
 
 
-        public async Task<IEnumerable<Nest>> GetNestsAsync(CancellationToken token = default)
+        public async Task<PterodactylList<Nest>> GetNestsAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/nests");
 
-            var response = await HandleRequest<BaseAttributes<IEnumerable<Nest>>>(request, token);
+            var response = await HandleArrayRequest<BaseAttributes<Nest>>(request, token);
 
-            return response.Data.Attributes;
+            var list = response.Select(rsp => rsp.Attributes);
+
+            return new PterodactylList<Nest>(list);
         }
 
         public async Task<IEnumerable<Nest>> GetNestsAsync(Func<Nest, bool> func, CancellationToken token = default)

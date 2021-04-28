@@ -18,13 +18,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
         internal NodeEndpoints(IRestClient client) : base(client)
         { }
 
-        public async Task<IEnumerable<Node>> GetNodesAsync(CancellationToken token = default)
+        public async Task<PterodactylList<Node>> GetNodesAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/application/nodes");
+            
+            var response = await HandleArrayRequest<BaseAttributes<Node>>(request, token);
 
-            var response = await HandleRequest<BaseAttributes<IEnumerable<Node>>>(request, token);
+            var list = response.Select(rsp => rsp.Attributes);
 
-            return response.Data.Attributes;
+            return new PterodactylList<Node>(list);
         }
 
         public async Task<IEnumerable<Node>> GetNodesAsync(Func<Node, bool> func, CancellationToken token = default)
@@ -39,7 +41,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Node>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<IEnumerable<Node>> FindNodesByPublicAsync(bool isPublic, CancellationToken token = default)
@@ -76,7 +78,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Node>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Node> CreateNodeAsync(NodeOptions options, CancellationToken token = default)
@@ -86,7 +88,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Node>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Node> EditNodeAsync(int id, Action<NodeOptions> options, CancellationToken token = default)
@@ -99,7 +101,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Node>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Node> EditNodeAsync(Node node, Action<NodeOptions> options, CancellationToken token = default)
@@ -114,7 +116,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Node>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Node> EditNodeAsync(Node node, NodeOptions options, CancellationToken token = default)
@@ -138,13 +140,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
 
 
-        public async Task<IEnumerable<Allocation>> GetAllocationsAsync(int nodeId, CancellationToken token = default)
+        public async Task<PterodactylList<Allocation>> GetAllocationsAsync(int nodeId, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations");
 
-            var response = await HandleRequest<BaseAttributes<IEnumerable<Allocation>>>(request, token);
+            var response = await HandleArrayRequest<BaseAttributes<Allocation>>(request, token);
 
-            return response.Data.Attributes;
+            var list = response.Select(rsp => rsp.Attributes);
+
+            return new PterodactylList<Allocation>(list);
         }
 
         public async Task<IEnumerable<Allocation>> GetAllocationsAsync(int nodeId, Func<Allocation, bool> func, CancellationToken token = default)
@@ -172,7 +176,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Allocation>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Allocation> CreateAllocationAsync(Node node, Action<AllocationOptions> options, CancellationToken token = default)
@@ -188,7 +192,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Allocation>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Allocation> CreateAllocationAsync(Node node, AllocationOptions options, CancellationToken token = default)

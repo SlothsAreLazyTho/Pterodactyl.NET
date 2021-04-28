@@ -19,13 +19,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
         { }
 
 
-        public async Task<IEnumerable<Database>> GetDatabasesByIdAsync(int id, CancellationToken token = default)
+        public async Task<PterodactylList<Database>> GetDatabasesByIdAsync(int id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/servers/{id}/databases");
 
-            var response = await HandleRequest<BaseAttributes<IEnumerable<Database>>>(request, token);
+            var response = await HandleArrayRequest<BaseAttributes<Database>>(request, token);
 
-            return response.Data.Attributes;
+            var list = response.Select(rsp => rsp.Attributes);
+
+            return new PterodactylList<Database>(list);
         }
 
         public async Task<IEnumerable<Database>> GetDatabasesByIdAsync(Server server, CancellationToken token = default)
@@ -39,7 +41,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Database>(request, token);
 
-            return response.Data;
+            return response;
 
         }
 
@@ -58,7 +60,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Database>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Database> CreateDatabaseAsync(Server server, Action<DatabaseOptions> options, CancellationToken token = default)
@@ -73,7 +75,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Database>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Database> CreateDatabaseAsync(Server server, DatabaseOptions options, CancellationToken token = default)
@@ -87,7 +89,7 @@ namespace Pterodactyl.NET.Endpoints.Admin
 
             var response = await HandleRequest<Database>(request, token);
 
-            return response.Data;
+            return response;
         }
 
         public async Task<Database> RegeneratePasswordAsync(Server server, int databaseId, CancellationToken token = default)

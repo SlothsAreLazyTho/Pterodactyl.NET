@@ -6,6 +6,7 @@ namespace Pterodactyl.NET.Objects
     {
 
         public string Object { get; set; }
+
         public T Attributes { get; set; }
 
     }

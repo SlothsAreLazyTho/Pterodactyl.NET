@@ -15,7 +15,7 @@ namespace Pterodactyl.NET.Exceptions
 
         public PterodactylException(PterodactylError[] errors) : base(errors.First().Detail)
         {
-            this.Errors = errors;
+            Errors = errors;
         }
 
     }

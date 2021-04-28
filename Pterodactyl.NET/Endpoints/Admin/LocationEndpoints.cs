@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Pterodactyl.NET.Objects;
 using Pterodactyl.NET.Objects.Admin;
 using Pterodactyl.NET.Objects.Admin.LocationAttributes;
 
@@ -18,13 +19,15 @@ namespace Pterodactyl.NET.Endpoints.Admin
         internal LocationEndpoints(IRestClient client) : base(client)
         { }
 
-        public async Task<IEnumerable<Location>> GetLocationsAsync(CancellationToken token = default) ///api/application/locations
+        public async Task<PterodactylList<Location>> GetLocationsAsync(CancellationToken token = default) ///api/application/locations
         {
             var request = new RestRequest("/api/application/locations");
-            
-            var response = await HandleRequest<IEnumerable<Location>>(request, token);
 
-            return response.Data;
+            var response = await HandleArrayRequest<BaseAttributes<Location>>(request, token);
+
+            var list = response.Select(rsp => rsp.Attributes);
+
+            return new PterodactylList<Location>(list);
         }
 
         public async Task<IEnumerable<Location>> GetLocationsAsync(Func<Location, bool> func, CancellationToken token = default)
