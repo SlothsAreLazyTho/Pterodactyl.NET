@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net5.0;</TargetFrameworks>
     <Authors>Sloths Are Lazy Tho</Authors>
     <Title>Pterodactyl.NET</Title>
     <Description>.NET Library to communicate with the pterodactyl API.</Description>
     <RepositoryUrl>https://github.com/SlothsAreLazyTho/Pterodactyl.NET</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReleaseNotes>First Release</PackageReleaseNotes>
     <PackageTags>Pterodactyl, Pterodactyl Wrapper, Pterodactyl Api Wrapper</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Copyright>Chino B.</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.0.1</Version>
+    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
   
   <ItemGroup>
@@ -25,6 +25,13 @@
   <ItemGroup>
     <Folder Include="Endpoints\V1_0\" />
     <Folder Include="Objects\V1_0\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\Pterodactyl.NET.Resources\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   
 </Project>

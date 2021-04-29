@@ -10,7 +10,7 @@ namespace Pterodactyl.NET
     internal class NewtonsoftSerializer : IRestSerializer
     {
 
-        private static readonly JsonSerializerSettings SerializerSettings = new()
+        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings()
         {
             ContractResolver = new DefaultContractResolver
             {
