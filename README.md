@@ -15,12 +15,6 @@ static void Main(string[] args)
 ```
 
 
-
-## Latest Release
-Dowload from releases [here](https://github.com/KadePcGames/Sharpdactyl/releases/latest)
-
-
-
 ## Build With
 * [RestSharp](https://restsharp.dev/) - Use it for your own wrapper on a API.
 * [Newtonsoft JSON](https://www.newtonsoft.com/json) - Used for serializing objects.
@@ -28,9 +22,7 @@ Dowload from releases [here](https://github.com/KadePcGames/Sharpdactyl/releases
 
 
 ## Latest Release
-Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/releases).
-
-I will take care to get this project up and running on Nuget!
+Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/releases) from github.
 
 
 ## Todo
