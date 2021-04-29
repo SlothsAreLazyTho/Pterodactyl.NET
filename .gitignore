@@ -10,6 +10,14 @@
 ./Pterodactyl.NET/bin/
 ./Pterodactyl.NET/bin/*
 
+./Pterodactyl.NET/Properties
+./Pterodactyl.NET/Properties/
+./Pterodactyl.NET/Properties/*
+
+/Pterodactyl.NET/Properties
+/Pterodactyl.NET/Properties/
+/Pterodactyl.NET/Properties/*
+
 /Pterodactyl.NET/bin
 /Pterodactyl.NET/bin/
 /Pterodactyl.NET/bin/*
