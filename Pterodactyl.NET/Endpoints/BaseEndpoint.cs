@@ -22,17 +22,10 @@ namespace Pterodactyl.NET.Endpoints
             _client = client;
         }
 
-        /*protected async Task<BaseResponse<T>> HandleRequest<T>(IRestRequest request, CancellationToken token = default)
-        {
-            var response = await HandleRequestRaw<T>(request, token);
-            return response.Data;
-        }*/
-
         protected async Task<IRestResponse<BaseResponse<T>>> HandleRequestRaw<T>(IRestRequest request, CancellationToken token = default)
         {
             var response = await _client.ExecuteAsync<BaseResponse<T>>(request, token).ConfigureAwait(false);
 
-            Console.WriteLine($"[{response.StatusCode}] {response.ResponseUri}");
             if (!response.IsSuccessful)
             {
                 var body = JsonConvert.DeserializeObject<BaseError>(response.Content);

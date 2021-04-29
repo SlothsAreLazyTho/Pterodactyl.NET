@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Pterodactyl.NET">
-      <HintPath>..\..\..\..\Desktop\Pterodactyl.NET.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Pterodactyl.NET\Pterodactyl.NET.csproj" />
   </ItemGroup>
 
 </Project>

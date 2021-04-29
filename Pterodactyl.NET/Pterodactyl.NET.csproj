@@ -21,4 +21,9 @@
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.11.7" />
   </ItemGroup>
   
+  <ItemGroup>
+    <Folder Include="Endpoints\V1_0\" />
+    <Folder Include="Objects\V1_0\" />
+  </ItemGroup>
+  
 </Project>

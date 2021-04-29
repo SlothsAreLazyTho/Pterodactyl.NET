@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-using Pterodactyl.NET.Endpoints.Admin;
-using Pterodactyl.NET.Endpoints.Client;
+using Pterodactyl.NET.Endpoints.V0_7.Admin;
+using Pterodactyl.NET.Endpoints.V0_7.Client;
+using Pterodactyl.NET.Objects;
 
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
