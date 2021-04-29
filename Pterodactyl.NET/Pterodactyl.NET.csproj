@@ -2,17 +2,19 @@
 
   <PropertyGroup>
     <TargetFrameworks>net5.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sloths Are Lazy Tho</Authors>
+    <Title>Pterodactyl.NET</Title>
     <Description>.NET Library to communicate with the pterodactyl API.</Description>
     <RepositoryUrl>https://github.com/SlothsAreLazyTho/Pterodactyl.NET</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageReleaseNotes>First Release</PackageReleaseNotes>
+    <PackageTags>Pterodactyl, Pterodactyl Wrapper, Pterodactyl Api Wrapper</PackageTags>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Copyright>Chino B.</Copyright>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
-    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
-    <DocumentationFile>C:\Users\Chino\Documents\GitHub\Pterodactyl.NET\Pterodactyl.NET\Pterodactyl.NET.xml</DocumentationFile>
-  </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp" Version="106.11.7" />

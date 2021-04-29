@@ -10,7 +10,7 @@ namespace Pterodactyl.NET.Objects.Client.ServerAttributes
 
         public Memory Memory { get; set; }
 
-        public Cpu Cpu { get; set; }
+        public Cpu CPU { get; set; }
 
         public Disk Disk { get; set; }
 
