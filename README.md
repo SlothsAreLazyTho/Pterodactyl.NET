@@ -1,6 +1,6 @@
 ![image](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/main/Pterodactyl.NET.Resources/logo.png)
 [![GitHub License](https://img.shields.io/github/license/SlothsAreLazyTho/Pterodactyl.NET)](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/master/LICENSE)
-# Pterodactyl.NET
+# Pterodactyl.NET V0.7
 
 ## Quick notes before reading...
 This wrapper is not finished and will be updated very reguaraly , Please be patient as it's uncompleted and will be finished.
@@ -15,12 +15,6 @@ static void Main(string[] args)
 ```
 
 
-
-## Latest Release
-Dowload from releases [here](https://github.com/KadePcGames/Sharpdactyl/releases/latest)
-
-
-
 ## Build With
 * [RestSharp](https://restsharp.dev/) - Use it for your own wrapper on a API.
 * [Newtonsoft JSON](https://www.newtonsoft.com/json) - Used for serializing objects.
@@ -28,10 +22,12 @@ Dowload from releases [here](https://github.com/KadePcGames/Sharpdactyl/releases
 
 
 ## Latest Release
-Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/releases).
+Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/releases) from github.
 
-I will take care to get this project up and running on Nuget!
 
+## Todo
+* Make support for pterodactyl 1+;
+* Better handeling for requests
 
 
 ## Credits
