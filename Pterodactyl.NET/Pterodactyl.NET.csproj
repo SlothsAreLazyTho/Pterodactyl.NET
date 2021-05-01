@@ -24,10 +24,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Objects\V1_0\" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <None Include="..\Pterodactyl.NET.Resources\Icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

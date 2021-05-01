@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 using Newtonsoft.Json;
 
 namespace Pterodactyl.NET.Objects.V1_0.Client
 {
+
+    [DebuggerDisplay("{" + nameof(Username) + "}")]
     public class Account
     {
 

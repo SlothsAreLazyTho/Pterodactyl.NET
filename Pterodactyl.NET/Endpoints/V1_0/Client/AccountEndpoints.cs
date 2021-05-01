@@ -30,7 +30,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
         {
             var request = new RestRequest("/api/client/account/two-factor");
 
-            var response = await HandleRequest<Account>(request, token);
+            var response = await HandleRequest<Account2FA>(request, token);
 
             return response;
         }
