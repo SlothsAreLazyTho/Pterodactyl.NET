@@ -9,8 +9,13 @@ namespace Pterodactyl.NET.Test
     {
         static async Task Main(string[] args)
         {
-            var pterodactyl = new Pterodactyl("panel.sirsloth.nl", "");
+            var pterodactyl = new Pterodactyl("panel.sirsloth.nl", "M1qRvWLv72FL2pwijzAJ0ycwM71S4ZFSLOXDSiRm1B814Ego");
+
+            var account = await pterodactyl.V1_0.Client.Account.GetAccountAsync();
+
             Debugger.Break();
+
+
         }
     }
 }

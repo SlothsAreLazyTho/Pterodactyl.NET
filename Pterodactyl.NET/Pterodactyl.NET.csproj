@@ -15,6 +15,7 @@
     <Version>1.0.2</Version>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/SlothsAreLazyTho/Pterodactyl.NET</PackageProjectUrl>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   
   <ItemGroup>

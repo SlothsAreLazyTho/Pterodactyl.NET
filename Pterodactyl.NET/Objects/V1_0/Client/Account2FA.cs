@@ -8,10 +8,19 @@ namespace Pterodactyl.NET.Objects.V1_0.Client
 {
 
     /* Class had to be renamed to Account2FA As 2 is not a valid character of course. */
-    public class Account2FA
+    public partial class Account2FA
     {
 
         [JsonProperty("image_url_data")]
         public string ImageUrlData { get; set; }
     }
+
+    public partial class Account2FATokens
+    {
+        
+        public string[] Tokens { get; set; }
+
+    }
+
+
 }
