@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
+using Pterodactyl.NET.Endpoints;
+using Pterodactyl.NET.Endpoints.V0_7;
 using Pterodactyl.NET.Endpoints.V0_7.Admin;
 using Pterodactyl.NET.Endpoints.V0_7.Client;
 using Pterodactyl.NET.Objects;
@@ -17,12 +19,12 @@ namespace Pterodactyl.NET
     {
 
         internal RestClient HttpClient { get; set; }
+
         
-        internal JsonSerializer Serializer { get; set; }
+        
+        public PterodactylV0_7 V0_7;
 
-
-        public ClientEndpoint Client { get; }
-        public AdminEndpoint Admin { get; }
+        public PterodactylV1_0 V1_0;
 
         public Pterodactyl(string hostname, string key)
         {
@@ -39,17 +41,8 @@ namespace Pterodactyl.NET
             HttpClient.AddDefaultHeader("Authorization", $"Bearer {key}");
             HttpClient.AddDefaultHeader("Accept", "Application/vnd.pterodactyl.v1+json");
 
-            Serializer = new JsonSerializer
-            {
-                ContractResolver = new DefaultContractResolver
-                {
-                    NamingStrategy = new CamelCaseNamingStrategy(false, false)
-                }
-            };
-
-            Client = new ClientEndpoint(HttpClient);
-            Admin = new AdminEndpoint(HttpClient);
+            V0_7 = new PterodactylV0_7(HttpClient);
+            V1_0 = new PterodactylV1_0(HttpClient);
         }
-
     }
 }

@@ -7,11 +7,9 @@ namespace Pterodactyl.NET.Test
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var key = Environment.GetEnvironmentVariable("Pterodactyl_ClientKey", EnvironmentVariableTarget.User);
-            var adminKey = Environment.GetEnvironmentVariable("Pterodactyl_AdminKey", EnvironmentVariableTarget.User);
-            var pterodactyl = new Pterodactyl("panel.ghservers.eu", adminKey);
+            var pterodactyl = new Pterodactyl("panel.sirsloth.nl", "");
             Debugger.Break();
         }
     }

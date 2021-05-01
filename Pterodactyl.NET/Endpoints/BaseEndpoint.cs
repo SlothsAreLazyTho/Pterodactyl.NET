@@ -67,6 +67,7 @@ namespace Pterodactyl.NET.Endpoints
             var response = await _client.ExecuteAsync<BaseResponse<T>>(request, token)
                 .ConfigureAwait(false);
 
+            
             if (!response.IsSuccessful)
             {
                 var body = JsonConvert.DeserializeObject<BaseError>(response.Content);

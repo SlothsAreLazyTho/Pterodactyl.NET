@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pterodactyl.NET.Objects
+namespace Pterodactyl.NET.Endpoints
 {
     public class BaseAttributes<T>
     {

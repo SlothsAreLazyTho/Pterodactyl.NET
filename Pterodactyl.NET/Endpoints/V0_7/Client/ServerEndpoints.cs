@@ -19,7 +19,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         internal ServerEndpoints(IRestClient client) : base(client) 
         { }
 
-
         public async Task<PterodactylList<Server>> GetServersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client");
@@ -31,11 +30,12 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             return new PterodactylList<Server>(list);
         }
 
-        public async Task<IEnumerable<Server>> GetServersAsync(Func<Server, bool> func, CancellationToken token = default)
+        public async Task<PterodactylList<Server>> GetServersAsync(Func<Server, bool> func, CancellationToken token = default)
         {
             var servers = await GetServersAsync(token);
-            return servers.Where(func);
+            return (PterodactylList<Server>) servers.Where(func).ToList();
         }
+
 
         public async Task<Server> FindServerAsync(Func<Server, bool> func, CancellationToken token = default)
         {
@@ -43,21 +43,17 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             return servers.Where(func).FirstOrDefault();
         }
 
-        public async Task<Server> GetServerByIdAsync(Server server, CancellationToken token = default)
-        {
-            return await GetServerByIdAsync(server.Identifier, token);
-        }
-
-        public async Task<Server> GetServerByIdAsync(string id, CancellationToken token = default)
+        public async Task<Server> FindServerByIdAsync(string id, CancellationToken token = default)
         {
             return await FindServerAsync(x => x.Identifier.Equals(id, StringComparison.CurrentCultureIgnoreCase), token);
         }
 
-        public async Task<ServerResource> GetServerResourceAsync(Server server, CancellationToken token = default)
+        public async Task<Server> FindServerByIdAsync(Server server, CancellationToken token = default)
         {
-            return await GetServerResourceAsync(server.Identifier, token);
+            return await FindServerByIdAsync(server.Identifier, token);
         }
-                
+
+
         public async Task<ServerResource> GetServerResourceAsync(string id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/client/servers/{id}/utilization", Method.GET);
@@ -67,10 +63,11 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             return response;
         }
 
-        public async Task<bool> SendCommandAsync(Server server, string command, CancellationToken token = default)
+        public async Task<ServerResource> GetServerResourceAsync(Server server, CancellationToken token = default)
         {
-            return await SendCommandAsync(server.Identifier, command, token);
+            return await GetServerResourceAsync(server.Identifier, token);
         }
+
 
         public async Task<bool> SendCommandAsync(string id, string command, CancellationToken token = default)
         {
@@ -82,15 +79,16 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             var request = new RestRequest($"/api/client/servers/{id}/command", Method.POST)
                 .AddJsonBody(payload);
 
-            var response = await HandleRequestRaw<object>(request, token);
+            var response = await HandleRequest(request, token);
 
             return response.IsSuccessful;
         }
 
-        public async Task<bool> SendPowerSignalAsync(Server server, ServerRunState state, CancellationToken token = default)
+        public async Task<bool> SendCommandAsync(Server server, string command, CancellationToken token = default)
         {
-            return await SendPowerSignalAsync(server.Identifier, state, token);
+            return await SendCommandAsync(server.Identifier, command, token);
         }
+
 
         public async Task<bool> SendPowerSignalAsync(string id, ServerRunState state, CancellationToken token = default)
         {
@@ -102,9 +100,14 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             var request = new RestRequest($"/api/client/servers/{id}/power", Method.POST)
                 .AddJsonBody(payload);
             
-            var response = await HandleRequestRaw<object>(request, token);
+            var response = await HandleRequest(request, token);
 
             return response.IsSuccessful;
+        }
+
+        public async Task<bool> SendPowerSignalAsync(Server server, ServerRunState state, CancellationToken token = default)
+        {
+            return await SendPowerSignalAsync(server.Identifier, state, token);
         }
 
     }
