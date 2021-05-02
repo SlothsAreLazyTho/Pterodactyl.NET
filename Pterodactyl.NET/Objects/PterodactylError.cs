@@ -1,6 +1,6 @@
 ﻿namespace Pterodactyl.NET.Objects
 {
-    class PterodactylError
+    public class PterodactylError
     {
 
         public string Code { get; set; }

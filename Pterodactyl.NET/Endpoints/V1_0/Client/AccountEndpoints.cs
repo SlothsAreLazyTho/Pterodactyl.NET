@@ -61,7 +61,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
             var request = new RestRequest("/api/client/account/two-factor", Method.DELETE)
                 .AddJsonBody(payload);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
@@ -78,7 +78,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
             var request = new RestRequest("/api/client/account/email", Method.PUT)
                 .AddJsonBody(payload);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -95,7 +95,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
             var request = new RestRequest("/api/client/account/password", Method.PUT)
                 .AddJsonBody(payload);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -139,7 +139,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
         {
             var request = new RestRequest($"/api/client/account/api-keys/{identifier}", Method.DELETE);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 
+using Pterodactyl.NET.Objects.Components;
 using Pterodactyl.NET.Objects.V0_7.Client.ServerAttributes;
 
 namespace Pterodactyl.NET.Objects.V0_7.Admin.ServerAttributes
@@ -18,7 +19,7 @@ namespace Pterodactyl.NET.Objects.V0_7.Admin.ServerAttributes
         [JsonProperty("docker_image")]
         public string DockerImage { get; set; }
 
-        public ServerLimits Limits { get; set; }
+        public Limits Limits { get; set; }
 
         [JsonProperty("feature_limits")]
         public ServerFeatureLimits FeatureLimits { get; set; }

@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Pterodactyl.NET.Endpoints.V0_7.Client;
 
 using RestSharp;
 
-namespace Pterodactyl.NET.Endpoints.V1_0.Client
+namespace Pterodactyl.NET.Endpoints.V0_7
 {
     public class ClientEndpoint
     {
 
         public ServerEndpoints Servers { get; }
 
-        public AccountEndpoints Account { get; }
-
         public ClientEndpoint(IRestClient client)
         {
             Servers = new ServerEndpoints(client);
-            Account = new AccountEndpoints(client);
         }
+
 
     }
 }

@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 using Newtonsoft.Json;
 
+using Pterodactyl.NET.Objects.Components;
 using Pterodactyl.NET.Objects.V0_7.Client.ServerAttributes;
 
 namespace Pterodactyl.NET.Objects.V0_7.Admin
@@ -28,7 +29,7 @@ namespace Pterodactyl.NET.Objects.V0_7.Admin
         [JsonProperty("suspended")]
         public bool IsSuspended { get; set; }
 
-        public ServerLimits Limits { get; set; }
+        public Limits Limits { get; set; }
 
         public ServerFeatureLimits FeatureLimits { get; set; }
 

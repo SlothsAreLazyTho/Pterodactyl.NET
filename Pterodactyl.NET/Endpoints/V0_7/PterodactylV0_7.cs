@@ -1,7 +1,4 @@
-﻿using Pterodactyl.NET.Endpoints.V0_7.Admin;
-using Pterodactyl.NET.Endpoints.V0_7.Client;
-
-using RestSharp;
+﻿using RestSharp;
 
 namespace Pterodactyl.NET.Endpoints.V0_7
 {

@@ -115,7 +115,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/locations/{id}", Method.DELETE);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
             
             return response.IsSuccessful;
         }

@@ -1,4 +1,5 @@
-﻿using Pterodactyl.NET.Objects;
+﻿using Pterodactyl.NET.Enum;
+using Pterodactyl.NET.Objects;
 using Pterodactyl.NET.Objects.V0_7.Client;
 using Pterodactyl.NET.Objects.V0_7.Client.ServerAttributes;
 
@@ -19,6 +20,9 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         internal ServerEndpoints(IRestClient client) : base(client) 
         { }
 
+
+
+
         public async Task<PterodactylList<Server>> GetServersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client");
@@ -33,8 +37,12 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         public async Task<PterodactylList<Server>> GetServersAsync(Func<Server, bool> func, CancellationToken token = default)
         {
             var servers = await GetServersAsync(token);
-            return (PterodactylList<Server>) servers.Where(func).ToList();
+
+            var list = servers.Where(func);
+
+            return new PterodactylList<Server>(list);
         }
+
 
 
         public async Task<Server> FindServerAsync(Func<Server, bool> func, CancellationToken token = default)
@@ -54,6 +62,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         }
 
 
+                
         public async Task<ServerResource> GetServerResourceAsync(string id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/client/servers/{id}/utilization", Method.GET);
@@ -69,6 +78,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         }
 
 
+
         public async Task<bool> SendCommandAsync(string id, string command, CancellationToken token = default)
         {
             var payload = new
@@ -79,7 +89,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             var request = new RestRequest($"/api/client/servers/{id}/command", Method.POST)
                 .AddJsonBody(payload);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -88,6 +98,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         {
             return await SendCommandAsync(server.Identifier, command, token);
         }
+
 
 
         public async Task<bool> SendPowerSignalAsync(string id, ServerRunState state, CancellationToken token = default)
@@ -100,7 +111,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             var request = new RestRequest($"/api/client/servers/{id}/power", Method.POST)
                 .AddJsonBody(payload);
             
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }

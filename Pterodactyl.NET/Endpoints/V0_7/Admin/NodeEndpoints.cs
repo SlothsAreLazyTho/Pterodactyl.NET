@@ -128,7 +128,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/nodes/{id}", Method.DELETE);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -203,7 +203,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations/{id}", Method.DELETE);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }

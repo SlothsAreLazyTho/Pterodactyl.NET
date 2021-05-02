@@ -1,6 +1,6 @@
-﻿namespace Pterodactyl.NET.Objects.V0_7.Client.ServerAttributes
+﻿namespace Pterodactyl.NET.Objects.Components
 {
-    public class ServerLimits
+    public class Limits
     {
 
         public long Memory { get; set; }

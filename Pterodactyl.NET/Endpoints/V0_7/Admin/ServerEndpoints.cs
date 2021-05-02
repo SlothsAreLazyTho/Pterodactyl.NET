@@ -104,7 +104,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/servers/{serverId}/suspend", Method.POST);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -118,7 +118,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/servers/{serverId}/unsuspend", Method.POST);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -132,7 +132,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/servers/{serverId}/reinstall", Method.POST);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -146,7 +146,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/servers/{serverId}/rebuild", Method.POST);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }
@@ -160,7 +160,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var request = new RestRequest($"/api/application/servers/{serverId}{(force ? "/force" : "")}", Method.POST);
 
-            var response = await HandleRequest(request, token);
+            var response = await HandleRequestRawAsync(request, token);
 
             return response.IsSuccessful;
         }

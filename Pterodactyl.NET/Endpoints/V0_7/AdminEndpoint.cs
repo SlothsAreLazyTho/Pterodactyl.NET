@@ -1,7 +1,9 @@
-﻿using RestSharp;
+﻿using Pterodactyl.NET.Endpoints.V0_7.Admin;
+
+using RestSharp;
 
 
-namespace Pterodactyl.NET.Endpoints.V0_7.Admin
+namespace Pterodactyl.NET.Endpoints.V0_7
 {
     public class AdminEndpoint
     {

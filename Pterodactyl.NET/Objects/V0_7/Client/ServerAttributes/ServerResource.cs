@@ -1,4 +1,5 @@
-﻿using Pterodactyl.NET.Objects.Components;
+﻿using Pterodactyl.NET.Enum;
+using Pterodactyl.NET.Objects.Components;
 
 namespace Pterodactyl.NET.Objects.V0_7.Client.ServerAttributes
 {

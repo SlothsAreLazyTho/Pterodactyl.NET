@@ -5,7 +5,7 @@ using Pterodactyl.NET.Objects;
 
 namespace Pterodactyl.NET.Exceptions
 {
-    class PterodactylException : Exception
+    public class PterodactylException : Exception
     {
 
         public PterodactylError[] Errors { get; }
@@ -14,6 +14,9 @@ namespace Pterodactyl.NET.Exceptions
         {
             Errors = errors;
         }
+
+        public PterodactylException(string exception) : base(exception)
+        { }
 
     }
 }

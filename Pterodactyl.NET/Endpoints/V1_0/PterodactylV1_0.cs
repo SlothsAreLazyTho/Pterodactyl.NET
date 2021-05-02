@@ -1,8 +1,6 @@
-﻿using Pterodactyl.NET.Endpoints.V1_0.Client;
+﻿using RestSharp;
 
-using RestSharp;
-
-namespace Pterodactyl.NET.Endpoints.V0_7
+namespace Pterodactyl.NET.Endpoints.V1_0
 {
     public class PterodactylV1_0
     {
