@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-using Pterodactyl.NET.Endpoints;
-
 using RestSharp;
 
 namespace Pterodactyl.NET.Objects.V1_0.Client
@@ -14,7 +12,6 @@ namespace Pterodactyl.NET.Objects.V1_0.Client
     [DebuggerDisplay("{" + nameof(Username) + "}")]
     public partial class Account
     {
-
         private readonly IRestClient _client;
 
         public Account()

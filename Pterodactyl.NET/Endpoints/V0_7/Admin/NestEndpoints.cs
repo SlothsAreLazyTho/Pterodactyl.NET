@@ -51,7 +51,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
             return await FindNestAsync(x => x.Id == id, token);
         }
 
-
         public async Task<IEnumerable<Egg>> GetEggsByNestAsync(Nest nest, CancellationToken token = default)
         {
             return await GetEggsByNestIdAsync(nest.Id, token);

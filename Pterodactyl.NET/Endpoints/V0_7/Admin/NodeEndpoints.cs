@@ -223,7 +223,5 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
             return await DeleteAllocationAsync(node.Id, allocation.Id, token);
         }
 
-
-
     }
 }

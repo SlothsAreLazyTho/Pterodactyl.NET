@@ -8,7 +8,6 @@ namespace Pterodactyl.NET.Objects.V1_0.Client
         [JsonProperty("server_owner")]
         public bool IsOwner { get; set; }
 
-
     }
 
 }

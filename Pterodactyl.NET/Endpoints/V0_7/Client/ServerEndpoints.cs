@@ -21,8 +21,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         { }
 
 
-
-
         public async Task<PterodactylList<Server>> GetServersAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client");
