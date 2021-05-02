@@ -1,6 +1,7 @@
 ![image](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/main/Pterodactyl.NET.Resources/logo.png)
 [![GitHub License](https://img.shields.io/github/license/SlothsAreLazyTho/Pterodactyl.NET)](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/blob/master/LICENSE)
 [![Nuget](https://img.shields.io/nuget/v/Pterodactyl.NET?logo=nuget)](https://www.nuget.org/packages/Pterodactyl.NET)
+[![Nuget DLs](https://img.shields.io/nuget/dt/Pterodactyl.NET?logo=nuget)](https://www.nuget.org/packages/Pterodactyl.NET)
 
 # Pterodactyl.NET V0.7
 
