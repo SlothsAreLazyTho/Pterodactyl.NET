@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Pterodactyl.NET.Objects;
 using Pterodactyl.NET.Objects.V0_7.Admin;
 using Pterodactyl.NET.Objects.V0_7.Admin.DatabaseAttributes;
 

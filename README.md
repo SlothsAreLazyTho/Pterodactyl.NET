@@ -8,7 +8,6 @@
 ## Quick notes before reading...
 This wrapper is not finished and will be updated very reguaraly , Please be patient as it's uncompleted and will be finished.
 
-
 ## Nuget
 ```
 Install-Package Pterodactyl.NET
@@ -16,10 +15,10 @@ Install-Package Pterodactyl.NET
 
 ## How to start
 ```cs
-static void Main(string[] args)
-  {
-    Pterodactyl pterodactyl = new Pterodactyl("pterodactyl.app", "Client Key Or Application Key");
-  }
+	static void Main(string[] args)
+	{
+		Pterodactyl pterodactyl = new Pterodactyl("pterodactyl.app", "Client Key Or Application Key");
+	}
 ```
 
 
@@ -35,8 +34,7 @@ Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/rel
 
 ## Todo
 * Make support for pterodactyl 1+;
-* Better handeling for requests
-
+* Clean project.
 
 ## Credits
 * Thanks to [Thoo_0224](https://github.com/thoo0224) for helping me out with some stuff.

@@ -9,6 +9,7 @@ using Pterodactyl.NET.Objects.V0_7.Admin;
 using RestSharp;
 using System;
 using Pterodactyl.NET.Objects.V0_7.Admin.ServerAttributes;
+using Pterodactyl.NET.Objects.V0_7.Client.ServerAttributes.Options;
 
 namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 {
@@ -99,6 +100,76 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
             return response;
         }
+
+        public async Task<Server> UpdateServerDetailsAsync(string Id, ServerDetailOptions options, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/servers/{Id}/ details", Method.PATCH)
+               .AddJsonBody(options);
+
+            var response = await HandleRequest<Server>(request, token);
+
+            return response;
+        }
+
+        public async Task<Server> UpdateServerDetailsAsync(Server server, ServerDetailOptions options, CancellationToken token = default)
+        {
+            return await UpdateServerDetailsAsync(server.Identifier, options, token);
+        }
+
+        public async Task<Server> UpdateServerDetailsAsync(Server server, Action<ServerDetailOptions> options, CancellationToken token = default)
+        {
+            var serverOptions = new ServerDetailOptions();
+            options.Invoke(serverOptions);
+            return await UpdateServerDetailsAsync(server.Identifier, serverOptions, token);
+        }
+
+        public async Task<Server> UpdateServerDetailsAsync(string Id, Action<ServerDetailOptions> options, CancellationToken token = default)
+        {
+            var serverOptions = new ServerDetailOptions();
+            options.Invoke(serverOptions);
+            return await UpdateServerDetailsAsync(Id, serverOptions, token);
+        }
+
+
+        /*
+         * 
+         * 
+         * 
+         */
+        public async Task<Server> UpdateServerBuildAsync(string Id, ServerBuildOptions options, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/servers/{Id}/build", Method.PATCH)
+               .AddJsonBody(options);
+
+            var response = await HandleRequest<Server>(request, token);
+
+            return response;
+        }
+
+        public async Task<Server> UpdateServerBuildAsync(Server server, ServerBuildOptions options, CancellationToken token = default)
+        {
+            return await UpdateServerDetailsAsync(server.Identifier, options, token);
+        }
+
+        public async Task<Server> UpdateServerBuildAsync(Server server, Action<ServerBuildOptions> options, CancellationToken token = default)
+        {
+            var serverOptions = new ServerBuildOptions();
+            options.Invoke(serverOptions);
+            return await UpdateServerDetailsAsync(server.Identifier, serverOptions, token);
+        }
+
+        public async Task<Server> UpdateServerBuildAsync(string Id, Action<ServerBuildOptions> options, CancellationToken token = default)
+        {
+            var serverOptions = new ServerBuildOptions();
+            options.Invoke(serverOptions);
+            return await UpdateServerDetailsAsync(Id, serverOptions, token);
+        }
+
+
+
+
+
+
 
         public async Task<bool> SuspendServerAsync(int serverId, CancellationToken token = default)
         {
