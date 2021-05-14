@@ -15,10 +15,10 @@ Install-Package Pterodactyl.NET
 
 ## How to start
 ```cs
-	static void Main(string[] args)
-	{
-		Pterodactyl pterodactyl = new Pterodactyl("pterodactyl.app", "Client Key Or Application Key");
-	}
+static void Main(string[] args)
+{
+	Pterodactyl pterodactyl = new Pterodactyl("pterodactyl.app", "Client Key Or Application Key");
+}
 ```
 
 
