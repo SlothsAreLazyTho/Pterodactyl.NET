@@ -41,8 +41,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             return new PterodactylList<Server>(list);
         }
 
-
-
         public async Task<Server> FindServerAsync(Func<Server, bool> func, CancellationToken token = default)
         {
             var servers = await GetServersAsync(token);
@@ -59,8 +57,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
             return await FindServerByIdAsync(server.Identifier, token);
         }
 
-
-                
         public async Task<ServerResource> GetServerResourceAsync(string id, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/client/servers/{id}/utilization", Method.GET);
@@ -74,8 +70,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         {
             return await GetServerResourceAsync(server.Identifier, token);
         }
-
-
 
         public async Task<bool> SendCommandAsync(string id, string command, CancellationToken token = default)
         {
@@ -96,8 +90,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Client
         {
             return await SendCommandAsync(server.Identifier, command, token);
         }
-
-
 
         public async Task<bool> SendPowerSignalAsync(string id, ServerRunState state, CancellationToken token = default)
         {

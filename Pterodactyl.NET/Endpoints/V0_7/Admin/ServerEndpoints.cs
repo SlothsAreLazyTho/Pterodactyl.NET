@@ -130,12 +130,6 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
             return await UpdateServerDetailsAsync(Id, serverOptions, token);
         }
 
-
-        /*
-         * 
-         * 
-         * 
-         */
         public async Task<Server> UpdateServerBuildAsync(string Id, ServerBuildOptions options, CancellationToken token = default)
         {
             var request = new RestRequest($"/api/application/servers/{Id}/build", Method.PATCH)
@@ -148,28 +142,51 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Server> UpdateServerBuildAsync(Server server, ServerBuildOptions options, CancellationToken token = default)
         {
-            return await UpdateServerDetailsAsync(server.Identifier, options, token);
+            return await UpdateServerBuildAsync(server.Identifier, options, token);
         }
 
         public async Task<Server> UpdateServerBuildAsync(Server server, Action<ServerBuildOptions> options, CancellationToken token = default)
         {
             var serverOptions = new ServerBuildOptions();
             options.Invoke(serverOptions);
-            return await UpdateServerDetailsAsync(server.Identifier, serverOptions, token);
+            return await UpdateServerBuildAsync(server.Identifier, serverOptions, token);
         }
 
         public async Task<Server> UpdateServerBuildAsync(string Id, Action<ServerBuildOptions> options, CancellationToken token = default)
         {
             var serverOptions = new ServerBuildOptions();
             options.Invoke(serverOptions);
-            return await UpdateServerDetailsAsync(Id, serverOptions, token);
+            return await UpdateServerBuildAsync(Id, serverOptions, token);
         }
 
+        public async Task<Server> UpdateServerStartupAsync(string Id, ServerStartupOptions options, CancellationToken token = default)
+        {
+            var request = new RestRequest($"/api/application/servers/{Id}/build", Method.PATCH)
+               .AddJsonBody(options);
 
+            var response = await HandleRequest<Server>(request, token);
 
+            return response;
+        }
 
+        public async Task<Server> UpdateServerStartupAsync(Server server, ServerStartupOptions options, CancellationToken token = default)
+        {
+            return await UpdateServerStartupAsync(server.Identifier, options, token);
+        }
 
+        public async Task<Server> UpdateServerStartupAsync(Server server, Action<ServerStartupOptions> options, CancellationToken token = default)
+        {
+            var serverOptions = new ServerStartupOptions();
+            options.Invoke(serverOptions);
+            return await UpdateServerStartupAsync(server.Identifier, serverOptions, token);
+        }
 
+        public async Task<Server> UpdateServerStartupAsync(string Id, Action<ServerStartupOptions> options, CancellationToken token = default)
+        {
+            var serverOptions = new ServerStartupOptions();
+            options.Invoke(serverOptions);
+            return await UpdateServerStartupAsync(Id, serverOptions, token);
+        }
 
         public async Task<bool> SuspendServerAsync(int serverId, CancellationToken token = default)
         {

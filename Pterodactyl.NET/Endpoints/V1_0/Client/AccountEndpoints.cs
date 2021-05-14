@@ -26,7 +26,6 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
             return response;
         }
 
-
         public async Task<Account2FA> Get2FAAsync(CancellationToken token = default)
         {
             var request = new RestRequest("/api/client/account/two-factor");
@@ -66,7 +65,6 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-
         public async Task<bool> UpdateEmailAsync(string email, string password, CancellationToken token = default)
         {
             var payload = new
@@ -99,7 +97,6 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
 
             return response.IsSuccessful;
         }
-
 
         public async Task<PterodactylList<ApiKey>> GetApiKeysAsync(CancellationToken token = default)
         {
@@ -148,10 +145,6 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
         {
             return await DeleteApiKeyAsync(key.Identifier, token);
         }
-
-        
-
-
 
     }
 }

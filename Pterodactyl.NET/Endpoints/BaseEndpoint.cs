@@ -22,11 +22,34 @@ namespace Pterodactyl.NET.Endpoints
             _client = client;
         }
 
+        private int CheckRateLimit(IRestResponse response)
+        {
+
+            var headers = response.Headers;
+
+            var rateLimit = headers.Where((h) => h.Name.Equals("x-ratelimit-limit"));
+
+            if (!rateLimit.Any()) return 0;
+
+            var remainingHeader = headers.Where((h) => h.Name.Equals("x-ratelimit-remaining"));
+
+            if (!remainingHeader.Any()) return 0;
+
+            return int.Parse(remainingHeader.ToList()[0].Value.ToString()); /* Not proud of this tbh */
+        }
+
         protected async Task<IRestResponse<T>> HandleRequestRawAsync<T>(IRestRequest request, CancellationToken token = default)
         {
 
             var response = await _client.ExecuteAsync<T>(request, token)
                 .ConfigureAwait(false);
+
+            var rateLimited = CheckRateLimit(response);
+
+            if(rateLimited != 0)
+            {
+                throw new PterodactylException($"You are being ratelimited, Wait another {rateLimited} seconds.");
+            }
 
             if (!response.IsSuccessful)
             {
@@ -42,6 +65,13 @@ namespace Pterodactyl.NET.Endpoints
 
             var response = await _client.ExecuteAsync(request, token)
                 .ConfigureAwait(false);
+
+            var rateLimited = CheckRateLimit(response);
+
+            if (rateLimited != 0)
+            {
+                throw new PterodactylException($"You are being ratelimited, Wait another {rateLimited} seconds.");
+            }
 
             if (!response.IsSuccessful)
             {

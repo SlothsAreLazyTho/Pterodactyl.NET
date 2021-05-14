@@ -38,7 +38,6 @@ namespace Pterodactyl.NET.Objects.V1_0.Client
         public string Language { get; set; }
 
 
-
         public async Task<bool> UpdateEmailAsync(string email, string password, CancellationToken token = default)
         {
             var payload = new

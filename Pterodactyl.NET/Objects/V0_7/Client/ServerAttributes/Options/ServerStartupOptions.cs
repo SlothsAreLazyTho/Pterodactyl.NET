@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Pterodactyl.NET.Objects.V0_7.Client.ServerAttributes.Options
 {
-    public class ServerStartupParameters
+    public class ServerStartupOptions
     {
 
         public string Startup { get; set; }
