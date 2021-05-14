@@ -2,8 +2,9 @@
 
 namespace Pterodactyl.NET.Endpoints
 {
-    class BaseError
+    internal class BaseError
     {
+
         public PterodactylError[] Errors { get; set; }
 
     }

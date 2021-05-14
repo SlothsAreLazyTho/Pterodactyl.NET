@@ -1,5 +1,8 @@
-﻿namespace Pterodactyl.NET.Objects
+﻿using System.Diagnostics;
+
+namespace Pterodactyl.NET.Objects
 {
+    [DebuggerDisplay("{" + nameof(Status) + "} : {" + nameof(Detail) + "}")]
     public class PterodactylError
     {
 
