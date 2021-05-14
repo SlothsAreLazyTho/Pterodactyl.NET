@@ -1,0 +1,6 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/RunConfigs/Config/=0E4378BC3BB2FB428281726B2592EA37/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/RunConfigs/Config/=0E4378BC3BB2FB428281726B2592EA37/Type/@EntryValue">project</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=0E4378BC3BB2FB428281726B2592EA37/Name/@EntryValue">Pterodactyl.NET.Test</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=0E4378BC3BB2FB428281726B2592EA37/ProjectGuid/@EntryValue">D4C3190DD4D5184C864E3913899D9481</s:String>
+	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">0E4378BC3BB2FB428281726B2592EA37</s:String></wpf:ResourceDictionary>
