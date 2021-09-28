@@ -35,7 +35,8 @@ Get the [latest release](https://github.com/SlothsAreLazyTho/Pterodactyl.NET/rel
 ## Todo
 * Make support for pterodactyl 1+;
 * Clean project.
+* Add more endpoints.
 
 ## Credits
 * Thanks to [Thoo_0224](https://github.com/thoo0224) for helping me out with some stuff.
-* Also thanks to [Holendrecht](https://github.com/Holendrecht) For the image and some tips.
+* Also thanks to [hoaxFacts](https://github.com/hoaxFacts) For the image and some tips.
