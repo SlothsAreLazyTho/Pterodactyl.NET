@@ -45,7 +45,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<User> FindUserByExternalIdAsync(string externalId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/users/external/{externalId}", Method.GET);
+            var request = new RestRequest($"/api/application/users/external/{externalId}", Method.Get);
             
             var response = await HandleRequest<User>(request, token);
 
@@ -55,32 +55,32 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         public async Task<User> FindUserByFirstnameAsync(string firstName, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
-            return users.Where(c => c.FirstName == firstName).FirstOrDefault();
+            return users.FirstOrDefault(c => c.FirstName == firstName);
         }
 
         public async Task<User> FindUserByLastnameAsync(string lastName, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
-            return users.Where(c => c.LastName == lastName).FirstOrDefault();
+            return users.FirstOrDefault(c => c.LastName == lastName);
         }
 
         public async Task<User> FindUserByUsernameAsync(string username, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
-            return users.Where(c => c.Username == username).FirstOrDefault();
+            return users.FirstOrDefault(c => c.Username == username);
         }
 
-        public async Task<User> FindUserByUUIDAsync(string uuid, CancellationToken token = default)
+        public async Task<User> FindUserByUuidAsync(string uuid, CancellationToken token = default)
         {
             var users = await GetUsersAsync(token);
-            return users.Where(c => c.Uuid == uuid).FirstOrDefault();
+            return users.FirstOrDefault(c => c.Uuid == uuid);
         }
 
         public async Task<User> CreateUserAsync(Action<UserOptions> options, CancellationToken token = default)
         {
             var user = new UserOptions();
             options.Invoke(user);
-            var request = new RestRequest($"/api/application/users", Method.POST)
+            var request = new RestRequest($"/api/application/users", Method.Post)
                 .AddJsonBody(user);
 
             var response = await HandleRequest<User>(request, token);
@@ -90,7 +90,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<User> CreateUserAsync(UserOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/users", Method.POST)
+            var request = new RestRequest($"/api/application/users", Method.Post)
                 .AddJsonBody(options);
 
             var response = await HandleRequest<User>(request, token);
@@ -103,7 +103,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
             var userOptions = new UserOptions();
             options.Invoke(userOptions);
 
-            var request = new RestRequest($"/api/application/users/{id}", Method.PATCH)
+            var request = new RestRequest($"/api/application/users/{id}", Method.Patch)
                 .AddJsonBody(userOptions);
 
             var response = await HandleRequest<User>(request, token);
@@ -118,7 +118,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<User> EditUserAsync(int id, UserOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/users/{id}", Method.PATCH)
+            var request = new RestRequest($"/api/application/users/{id}", Method.Patch)
                 .AddJsonBody(options);
 
             var response = await HandleRequest<User>(request, token);
@@ -133,7 +133,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> DeleteUserAsync(int id, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/users/{id}", Method.DELETE);
+            var request = new RestRequest($"/api/application/users/{id}", Method.Delete);
 
             var response = await HandleRequestRawAsync(request, token);
 

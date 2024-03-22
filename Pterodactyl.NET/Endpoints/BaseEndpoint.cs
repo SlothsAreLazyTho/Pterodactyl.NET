@@ -20,22 +20,25 @@ namespace Pterodactyl.NET.Endpoints
             _client = client;
         }
 
-        private static int CheckRateLimit(IRestResponse response)
+        private static int CheckRateLimit(RestResponse response)
         {
             var headers = response.Headers;
-            var rateLimitHeader = 
-                headers.FirstOrDefault((x) => x.Name != null && x.Name.Equals("x-ratelimit-limit"));
-            var remainingHeader =
-                headers.FirstOrDefault((h) => h.Name != null && h.Name.Equals("x-ratelimit-remaining"));
-            if (rateLimitHeader == null || remainingHeader == null)
+            if (headers != null)
             {
-                return 0;
+                var rateLimitHeader = headers.FirstOrDefault((x) => x.Name is "x-ratelimit-limit");
+                var remainingHeader = headers.FirstOrDefault((h) => h.Name is "x-ratelimit-remaining");
+                if (rateLimitHeader == null || remainingHeader == null)
+                {
+                    return 0;
+                }
+
+                return int.Parse(remainingHeader.Value?.ToString() ?? "0");
             }
 
-            return int.Parse(remainingHeader.Value?.ToString() ?? "0");
+            return (0);
         }
 
-        protected async Task<IRestResponse<T>> HandleRequestRawAsync<T>(IRestRequest request, CancellationToken token = default)
+        protected async Task<RestResponse<T>> HandleRequestRawAsync<T>(RestRequest request, CancellationToken token = default)
         {
             var response = await _client.ExecuteAsync<T>(request, token)
                 .ConfigureAwait(false);
@@ -55,7 +58,7 @@ namespace Pterodactyl.NET.Endpoints
             return response;
         }
 
-        protected async Task<IRestResponse> HandleRequestRawAsync(IRestRequest request, CancellationToken token = default)
+        protected async Task<RestResponse> HandleRequestRawAsync(RestRequest request, CancellationToken token = default)
         {
             var result = await HandleRequestRawAsync<object>(request, token)
                 .ConfigureAwait(false);
@@ -63,14 +66,14 @@ namespace Pterodactyl.NET.Endpoints
             return result;
         }
 
-        protected async Task<T> HandleRequest<T>(IRestRequest request, CancellationToken token = default)
+        protected async Task<T> HandleRequest<T>(RestRequest request, CancellationToken token = default)
         {
             var response = await HandleRequestRawAsync<BaseAttributes<T>>(request, token);
 
             return response.Data.Attributes;
         }
 
-        protected async Task<PterodactylList<T>> HandleArrayRequest<T>(IRestRequest request, CancellationToken token = default)
+        protected async Task<PterodactylList<T>> HandleArrayRequest<T>(RestRequest request, CancellationToken token = default)
         {
             var response = await HandleRequestRawAsync<BaseResponse<T>>(request, token);
 

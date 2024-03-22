@@ -66,14 +66,14 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<IEnumerable<Node>> FindMainstanceNodesAsync(CancellationToken token = default)
         {
-            return await GetNodesAsync(c => c.IsMainstanceMode == true, token);
+            return await GetNodesAsync(c => c.IsMaintenanceMode == true, token);
         }
 
         public async Task<Node> CreateNodeAsync(Action<NodeOptions> options, CancellationToken token = default)
         {
             var node = new NodeOptions();
             options.Invoke(node);
-            var request = new RestRequest($"/api/application/nodes", Method.POST)
+            var request = new RestRequest($"/api/application/nodes", Method.Post)
                 .AddJsonBody(node);
 
             var response = await HandleRequest<Node>(request, token);
@@ -83,7 +83,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Node> CreateNodeAsync(NodeOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nodes", Method.POST)
+            var request = new RestRequest($"/api/application/nodes", Method.Post)
                 .AddJsonBody(options);
 
             var response = await HandleRequest<Node>(request, token);
@@ -96,7 +96,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
             var nodeOptions = new NodeOptions();
             options.Invoke(nodeOptions);
 
-            var request = new RestRequest($"/api/application/nodes/{id}", Method.PATCH)
+            var request = new RestRequest($"/api/application/nodes/{id}", Method.Patch)
                 .AddJsonBody(nodeOptions);
 
             var response = await HandleRequest<Node>(request, token);
@@ -111,7 +111,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Node> EditNodeAsync(int id, NodeOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nodes/{id}", Method.PATCH)
+            var request = new RestRequest($"/api/application/nodes/{id}", Method.Patch)
                 .AddJsonBody(options);
 
             var response = await HandleRequest<Node>(request, token);
@@ -126,7 +126,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> DeleteNodeAsync(int id, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nodes/{id}", Method.DELETE);
+            var request = new RestRequest($"/api/application/nodes/{id}", Method.Delete);
 
             var response = await HandleRequestRawAsync(request, token);
 
@@ -169,7 +169,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
         {
             var allocation = new AllocationOptions();
             options.Invoke(allocation);
-            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations", Method.POST)
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations", Method.Post)
                 .AddJsonBody(allocation);
 
             var response = await HandleRequest<Allocation>(request, token);
@@ -185,7 +185,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Allocation> CreateAllocationAsync(int nodeId, AllocationOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations", Method.POST)
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations", Method.Post)
                 .AddJsonBody(options);
 
             var response = await HandleRequest<Allocation>(request, token);
@@ -201,7 +201,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> DeleteAllocationAsync(int nodeId, int id, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations/{id}", Method.DELETE);
+            var request = new RestRequest($"/api/application/nodes/{nodeId}/allocations/{id}", Method.Delete);
 
             var response = await HandleRequestRawAsync(request, token);
 

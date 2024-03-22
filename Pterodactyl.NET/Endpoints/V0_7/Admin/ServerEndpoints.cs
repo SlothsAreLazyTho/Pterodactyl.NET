@@ -83,7 +83,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
             var server = new ServerOptions();
             options.Invoke(server);
 
-            var request = new RestRequest("/api/application/servers", Method.POST)
+            var request = new RestRequest("/api/application/servers", Method.Post)
                 .AddJsonBody(server);
 
             var response = await HandleRequest<Server>(request, token);
@@ -93,7 +93,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Server> CreateServerAsync(ServerOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest("/api/application/servers", Method.POST)
+            var request = new RestRequest("/api/application/servers", Method.Post)
                 .AddJsonBody(options);
 
             var response = await HandleRequest<Server>(request, token);
@@ -103,7 +103,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Server> UpdateServerDetailsAsync(string Id, ServerDetailOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{Id}/ details", Method.PATCH)
+            var request = new RestRequest($"/api/application/servers/{Id}/ details", Method.Patch)
                .AddJsonBody(options);
 
             var response = await HandleRequest<Server>(request, token);
@@ -132,7 +132,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Server> UpdateServerBuildAsync(string Id, ServerBuildOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{Id}/build", Method.PATCH)
+            var request = new RestRequest($"/api/application/servers/{Id}/build", Method.Patch)
                .AddJsonBody(options);
 
             var response = await HandleRequest<Server>(request, token);
@@ -161,7 +161,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Server> UpdateServerStartupAsync(string Id, ServerStartupOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{Id}/build", Method.PATCH)
+            var request = new RestRequest($"/api/application/servers/{Id}/build", Method.Patch)
                .AddJsonBody(options);
 
             var response = await HandleRequest<Server>(request, token);
@@ -190,7 +190,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> SuspendServerAsync(int serverId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}/suspend", Method.POST);
+            var request = new RestRequest($"/api/application/servers/{serverId}/suspend", Method.Post);
 
             var response = await HandleRequestRawAsync(request, token);
 
@@ -204,7 +204,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> UnsuspendServerAsync(int serverId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}/unsuspend", Method.POST);
+            var request = new RestRequest($"/api/application/servers/{serverId}/unsuspend", Method.Post);
 
             var response = await HandleRequestRawAsync(request, token);
 
@@ -218,7 +218,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> ReinstallServerAsync(int serverId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}/reinstall", Method.POST);
+            var request = new RestRequest($"/api/application/servers/{serverId}/reinstall", Method.Post);
 
             var response = await HandleRequestRawAsync(request, token);
 
@@ -232,7 +232,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> RebuildServerAsync(int serverId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}/rebuild", Method.POST);
+            var request = new RestRequest($"/api/application/servers/{serverId}/rebuild", Method.Post);
 
             var response = await HandleRequestRawAsync(request, token);
 
@@ -246,7 +246,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> DeleteServerAsync(int serverId, bool force, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}{(force ? "/force" : "")}", Method.POST);
+            var request = new RestRequest($"/api/application/servers/{serverId}{(force ? "/force" : "")}", Method.Post);
 
             var response = await HandleRequestRawAsync(request, token);
 

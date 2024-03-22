@@ -46,7 +46,7 @@ namespace Pterodactyl.NET.Objects.V1_0.Client
                 Password = password
             };
 
-            var request = new RestRequest("/api/client/account/email", Method.PUT)
+            var request = new RestRequest("/api/client/account/email", Method.Put)
                 .AddJsonBody(payload);
 
             var response = await _client.ExecuteAsync(request, token);
@@ -63,7 +63,7 @@ namespace Pterodactyl.NET.Objects.V1_0.Client
                 password_confirmation = newPassword
             };
 
-            var request = new RestRequest("/api/client/account/password", Method.PUT)
+            var request = new RestRequest("/api/client/account/password", Method.Put)
                 .AddJsonBody(payload);
 
             var response = await _client.ExecuteAsync(request, token);

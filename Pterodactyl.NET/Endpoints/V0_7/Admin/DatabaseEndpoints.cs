@@ -53,7 +53,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
             var databaseOptions = new DatabaseOptions();
             options.Invoke(databaseOptions);
 
-            var request = new RestRequest($"/api/application/servers/{serverId}/databases", Method.POST)
+            var request = new RestRequest($"/api/application/servers/{serverId}/databases", Method.Post)
                 .AddJsonBody(databaseOptions);
 
             var response = await HandleRequest<Database>(request, token);
@@ -68,7 +68,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Database> CreateDatabaseAsync(int serverId, DatabaseOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}/databases", Method.POST)
+            var request = new RestRequest($"/api/application/servers/{serverId}/databases", Method.Post)
                  .AddJsonBody(options);
 
             var response = await HandleRequest<Database>(request, token);
@@ -83,7 +83,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<Database> RegeneratePasswordAsync(int serverId, int databaseId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}/databases/{databaseId}/reset-password", Method.POST);
+            var request = new RestRequest($"/api/application/servers/{serverId}/databases/{databaseId}/reset-password", Method.Post);
 
             var response = await HandleRequest<Database>(request, token);
 
@@ -107,7 +107,7 @@ namespace Pterodactyl.NET.Endpoints.V0_7.Admin
 
         public async Task<bool> DeleteDatabaseAsync(int serverId, int databaseId, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/application/servers/{serverId}/databases/{databaseId}", Method.DELETE);
+            var request = new RestRequest($"/api/application/servers/{serverId}/databases/{databaseId}", Method.Delete);
 
             var response = await HandleRequestRawAsync(request, token);
 

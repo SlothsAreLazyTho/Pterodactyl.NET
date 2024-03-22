@@ -11,7 +11,7 @@ namespace Pterodactyl.NET.Test
     {
         static async Task Main(string[] args)
         {
-            await Pterodactyl1_0("pterodactyl.app", "KeyHere");
+            await Pterodactyl1_0("http://localhost", "ptlc_a1xTtcQHz7LNpwdJNtwGpki3Xsi3obAm6d4o9tDNPc9");
             Debugger.Break();
         }
 

@@ -42,7 +42,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
                 code = totp
             };
 
-            var request = new RestRequest("/api/client/account/two-factor", Method.POST)
+            var request = new RestRequest("/api/client/account/two-factor", Method.Post)
                 .AddJsonBody(payload);
 
             var response = await HandleRequest<BaseAttributes<Account2FATokens>>(request, token);
@@ -57,7 +57,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
                 Password = password
             };
 
-            var request = new RestRequest("/api/client/account/two-factor", Method.DELETE)
+            var request = new RestRequest("/api/client/account/two-factor", Method.Delete)
                 .AddJsonBody(payload);
 
             var response = await HandleRequestRawAsync(request, token);
@@ -73,7 +73,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
                 Password = password
             };
 
-            var request = new RestRequest("/api/client/account/email", Method.PUT)
+            var request = new RestRequest("/api/client/account/email", Method.Put)
                 .AddJsonBody(payload);
 
             var response = await HandleRequestRawAsync(request, token);
@@ -90,7 +90,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
                 password_confirmation = newPassword
             };
 
-            var request = new RestRequest("/api/client/account/password", Method.PUT)
+            var request = new RestRequest("/api/client/account/password", Method.Put)
                 .AddJsonBody(payload);
 
             var response = await HandleRequestRawAsync(request, token);
@@ -114,7 +114,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
             var keyOption = new ApiKeyOptions();
             options.Invoke(keyOption);
 
-            var request = new RestRequest($"/api/client/account/api-keys", Method.POST)
+            var request = new RestRequest($"/api/client/account/api-keys", Method.Post)
                 .AddJsonBody(keyOption);
 
             var response = await HandleRequest<ApiKey>(request, token);
@@ -124,7 +124,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
 
         public async Task<ApiKey> CreateApiKeyAsync(ApiKeyOptions options, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/client/account/api-keys", Method.POST)
+            var request = new RestRequest($"/api/client/account/api-keys", Method.Post)
                 .AddJsonBody(options);
 
             var response = await HandleRequest<ApiKey>(request, token);
@@ -134,7 +134,7 @@ namespace Pterodactyl.NET.Endpoints.V1_0.Client
 
         public async Task<bool> DeleteApiKeyAsync(string identifier, CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/client/account/api-keys/{identifier}", Method.DELETE);
+            var request = new RestRequest($"/api/client/account/api-keys/{identifier}", Method.Delete);
 
             var response = await HandleRequestRawAsync(request, token);
 

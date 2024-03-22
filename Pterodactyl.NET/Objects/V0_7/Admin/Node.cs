@@ -28,8 +28,8 @@ namespace Pterodactyl.NET.Objects.V0_7.Admin
         [JsonProperty("behind_proxy")]
         public bool IsBehindProxy { get; set; }
 
-        [JsonProperty("mainstance_mode")]
-        public bool IsMainstanceMode { get; set; }
+        [JsonProperty("maintenance_mode")]
+        public bool IsMaintenanceMode { get; set; }
 
         public long Memory { get; set; }
 

@@ -44,7 +44,7 @@ namespace Pterodactyl.NET.Objects.V0_7.Client
 
         public async Task<ServerResource> GetResourceAsync(CancellationToken token = default)
         {
-            var request = new RestRequest($"/api/client/servers/{Identifier}/utilization", Method.GET);
+            var request = new RestRequest($"/api/client/servers/{Identifier}/utilization", Method.Get);
 
             var response = await _client.ExecuteAsync<BaseAttributes<ServerResource>>(request, token);
 
@@ -58,7 +58,7 @@ namespace Pterodactyl.NET.Objects.V0_7.Client
                 Signal = state.ToString().ToLower()
             };
 
-            var request = new RestRequest($"/api/client/servers/{Identifier}/power", Method.POST)
+            var request = new RestRequest($"/api/client/servers/{Identifier}/power", Method.Post)
                 .AddJsonBody(payload);
 
             var response = await _client.ExecuteAsync(request, token);
@@ -73,7 +73,7 @@ namespace Pterodactyl.NET.Objects.V0_7.Client
                 Command = command
             };
 
-            var request = new RestRequest($"/api/client/servers/{Identifier}/command", Method.POST)
+            var request = new RestRequest($"/api/client/servers/{Identifier}/command", Method.Post)
                 .AddJsonBody(payload);
 
             var response = await _client.ExecuteAsync(request, token);

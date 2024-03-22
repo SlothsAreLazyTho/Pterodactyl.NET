@@ -7,6 +7,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace Pterodactyl.NET
 {
@@ -35,8 +36,8 @@ namespace Pterodactyl.NET
             var regex = new Regex("http(s?)://");
             var host = regex.Match(hostname).Success ? hostname : $"https://{hostname}/";
 
-            HttpClient = new RestClient(host);
-            HttpClient.UseSerializer<NewtonsoftSerializer>();
+            HttpClient = new RestClient(host,
+                configureSerialization: s => s.UseNewtonsoftJson());
             HttpClient.AddDefaultHeaders(new Dictionary<string, string>()
             {
                 { "Authorization", $"Bearer {key}" },
